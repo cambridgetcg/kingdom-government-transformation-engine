@@ -1,0 +1,205 @@
+{
+  "adoption": {
+    "authorityLocation": "outside-this-system",
+    "state": "not-adopted"
+  },
+  "asOf": "2026-08-21",
+  "authorship": {
+    "compiledBy": "codex-assisted-publication",
+    "exactTextHumanReviewed": false,
+    "humanReviewCompleted": false,
+    "humanReviewRequired": true,
+    "humanDirectionRecorded": true,
+    "origin": "maintainer-authorized-assisted-publication"
+  },
+  "boundaries": {
+    "accountAccess": false,
+    "advice": false,
+    "acceptsFreeText": false,
+    "authorityCreation": false,
+    "automatedAction": false,
+    "automatedDecision": false,
+    "automaticProgression": false,
+    "approval": false,
+    "credentialAccess": false,
+    "credentialCollection": false,
+    "currentOfficeholders": false,
+    "deadlineDetermination": false,
+    "decisionAuthority": false,
+    "deployment": false,
+    "eligibilityDetermination": false,
+    "externalEffects": false,
+    "externalCrosswalkAsGovernmentEvidence": false,
+    "filing": false,
+    "governmentAffiliation": false,
+    "identityAccess": false,
+    "identityCollection": false,
+    "legalAdvice": false,
+    "legalConclusion": false,
+    "liabilityDetermination": false,
+    "liveData": false,
+    "llmRuntime": false,
+    "mcpExposure": false,
+    "networkAtBuildOrRuntime": false,
+    "officialEndorsement": false,
+    "payment": false,
+    "partyProfiles": false,
+    "peopleProfiles": false,
+    "personalData": false,
+    "personalDataCollection": false,
+    "preferredOptionSelection": false,
+    "procurement": false,
+    "publicForm": false,
+    "ranking": false,
+    "runtimeFetch": false,
+    "scoring": false,
+    "spending": false,
+    "submissions": false,
+    "taxAdvice": false,
+    "taxConclusion": false,
+    "transaction": false
+  },
+  "categoryErrorRules": [
+    {
+      "id": "rule:complaint-not-appeal",
+      "left": "complaint",
+      "relation": "does-not-imply",
+      "right": "appeal-or-deadline-protection"
+    },
+    {
+      "id": "rule:external-crosswalk-not-official-evidence",
+      "left": "external-crosswalk",
+      "relation": "does-not-imply",
+      "right": "official-evidence"
+    },
+    {
+      "id": "rule:freshness-not-legal-effect",
+      "left": "freshness",
+      "relation": "does-not-imply",
+      "right": "legal-effect"
+    },
+    {
+      "id": "rule:guidance-not-law",
+      "left": "guidance",
+      "relation": "does-not-imply",
+      "right": "law"
+    },
+    {
+      "id": "rule:mandate-not-legal-power",
+      "left": "mandate",
+      "relation": "does-not-imply",
+      "right": "legal-power"
+    },
+    {
+      "id": "rule:payment-rail-not-authority",
+      "left": "payment-rail",
+      "relation": "does-not-imply",
+      "right": "authority"
+    },
+    {
+      "id": "rule:appropriation-not-credit",
+      "left": "appropriation",
+      "relation": "does-not-imply",
+      "right": "credit"
+    },
+    {
+      "id": "rule:appropriation-not-issue",
+      "left": "appropriation",
+      "relation": "does-not-imply",
+      "right": "issue"
+    },
+    {
+      "id": "rule:estimate-not-appropriation",
+      "left": "estimate",
+      "relation": "does-not-imply",
+      "right": "appropriation"
+    },
+    {
+      "id": "rule:forecast-not-appropriation",
+      "left": "forecast",
+      "relation": "does-not-imply",
+      "right": "appropriation"
+    },
+    {
+      "id": "rule:forecast-not-authority",
+      "left": "forecast",
+      "relation": "does-not-imply",
+      "right": "authority"
+    },
+    {
+      "id": "rule:issue-not-outturn",
+      "left": "issue",
+      "relation": "does-not-imply",
+      "right": "outturn"
+    },
+    {
+      "id": "rule:payment-settlement-not-liability",
+      "left": "payment-or-settlement",
+      "relation": "does-not-imply",
+      "right": "liability"
+    },
+    {
+      "id": "rule:payment-settlement-not-spending-power",
+      "left": "payment-or-settlement",
+      "relation": "does-not-imply",
+      "right": "spending-power"
+    },
+    {
+      "id": "rule:plan-not-appropriation",
+      "left": "plan",
+      "relation": "does-not-imply",
+      "right": "appropriation"
+    },
+    {
+      "id": "rule:plan-not-estimate",
+      "left": "plan",
+      "relation": "does-not-imply",
+      "right": "estimate"
+    },
+    {
+      "id": "rule:service-not-decision-authority",
+      "left": "service-or-api",
+      "relation": "does-not-imply",
+      "right": "decision-authority"
+    },
+    {
+      "id": "rule:topic-not-competence",
+      "left": "topic",
+      "relation": "does-not-imply",
+      "right": "legislative-or-executive-competence"
+    }
+  ],
+  "contractVersion": "0.1.0",
+  "freshness": {
+    "automaticRuntimeEnforcement": false,
+    "expiredState": "hard-quarantined-historical-only",
+    "immutableAfterDeadline": "historical-orientation-only",
+    "inheritsBaseReviewWindow": true,
+    "mutableAliasPolicy": "retire-or-replace",
+    "nextReviewDue": "2026-09-21",
+    "readerTimeStateNotEmbedded": true,
+    "releaseGateRequired": true,
+    "stateAtPublication": "within-review-window"
+  },
+  "jurisdiction": {
+    "code": "UK",
+    "label": "United Kingdom",
+    "scope": "orientation-only"
+  },
+  "schema": "kingdom.government-transformation-orientation-public-snapshot/0.1",
+  "title": "Government Transformation Engine: United Kingdom",
+  "trialChamber": {
+    "compatibility": "unavailable",
+    "result": null,
+    "useAsAuthority": false
+  },
+  "urls": {
+    "canonical": "https://thekingdom.dev/government/uk-government-transformation-engine-2026-08-21.json",
+    "guide": "https://thekingdom.dev/UK-GOVERNMENT-TRANSFORMATION-ENGINE-v0.1.md",
+    "human": "https://thekingdom.dev/government-transformation-engine/",
+    "mutableAlias": "https://thekingdom.dev/government-transformations.json",
+    "producer": "https://github.com/cambridgetcg/kingdom-government-transformation-engine/tree/v0.1.0",
+    "repository": "https://github.com/cambridgetcg/kingdom-government-transformation-engine",
+    "schema": "https://thekingdom.dev/government/transformations/schemas/v0.1/public-snapshot.schema.json"
+  }
+}

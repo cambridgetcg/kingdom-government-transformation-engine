@@ -1,0 +1,415 @@
+[
+  {
+    "actionArrays": {
+      "decision": [],
+      "evaluation": [],
+      "implementation": [],
+      "operational": [],
+      "redress": []
+    },
+    "adoption": {
+      "authorityLocation": "outside-this-system",
+      "state": "not-adopted"
+    },
+    "authorityDependencyGraph": {
+      "automaticProgression": false,
+      "edges": [
+        {
+          "fromId": "law:instrument-question",
+          "id": "dependency:money-law-prerequisite",
+          "rationale": "A spending narrative cannot substitute for identifying the relevant legal authority.",
+          "toId": "money:authority-question",
+          "type": "prerequisite"
+        },
+        {
+          "fromId": "mandate:accountability-question",
+          "id": "dependency:mandate-jurisdiction-parallel",
+          "rationale": "Institutional accountability and territorial competence remain separate lines of inquiry.",
+          "toId": "jurisdiction:competence-question",
+          "type": "parallel"
+        },
+        {
+          "fromId": "delivery:rail-question",
+          "id": "dependency:delivery-money-feedback",
+          "rationale": "Operational observations may expose a public-money question without settling it.",
+          "toId": "money:authority-question",
+          "type": "feedback"
+        },
+        {
+          "fromId": "delivery:rail-question",
+          "id": "dependency:rail-does-not-imply-authority",
+          "rationale": "A service or payment rail does not create mandate, legal power or spending authority.",
+          "toId": "mandate:accountability-question",
+          "type": "does-not-imply"
+        },
+        {
+          "fromId": "remedy:accountability-question",
+          "id": "dependency:remedy-delivery-parallel",
+          "rationale": "Accountability and complaint questions can be examined alongside service design without becoming implementation instructions.",
+          "toId": "delivery:rail-question",
+          "type": "parallel"
+        }
+      ],
+      "nodes": [
+        {
+          "assessmentId": "assessment:money-service-delivery",
+          "baseEntityIds": ["claim:delivery-pay", "claim:money-gbs", "claim:money-rtgs-chaps"],
+          "id": "delivery:rail-question",
+          "label": "Service and settlement rails",
+          "planeId": "plane:delivery"
+        },
+        {
+          "assessmentId": "assessment:money-service-jurisdiction",
+          "baseEntityIds": ["claim:jurisdiction-asymmetric"],
+          "id": "jurisdiction:competence-question",
+          "label": "Territorial competence question",
+          "planeId": "plane:jurisdiction"
+        },
+        {
+          "assessmentId": "assessment:money-service-law",
+          "baseEntityIds": ["claim:law-guidance-distinct"],
+          "id": "law:instrument-question",
+          "label": "Instrument and authority question",
+          "planeId": "plane:law"
+        },
+        {
+          "assessmentId": "assessment:money-service-mandate",
+          "baseEntityIds": ["claim:authority-government-parliament-distinct"],
+          "id": "mandate:accountability-question",
+          "label": "Institutional accountability question",
+          "planeId": "plane:mandate"
+        },
+        {
+          "assessmentId": "assessment:money-service-money",
+          "baseEntityIds": ["claim:money-estimates", "claim:money-parliamentary-authority", "unknown:public-money-trace"],
+          "id": "money:authority-question",
+          "label": "Authority and traceability question",
+          "planeId": "plane:money"
+        },
+        {
+          "assessmentId": "assessment:money-service-remedy",
+          "baseEntityIds": ["claim:remedy-routes-distinct"],
+          "id": "remedy:accountability-question",
+          "label": "Accountability-route question",
+          "planeId": "plane:remedy"
+        }
+      ]
+    },
+    "causalChangeHypothesisGraph": {
+      "claimsCausalTruth": false,
+      "edges": [
+        {"fromId": "causal:money-bau", "id": "causal-edge:money-bau-output", "toId": "causal:money-bau-state", "type": "hypothesises-contribution"},
+        {"fromId": "causal:money-alt-glossary", "id": "causal-edge:money-glossary-output", "toId": "causal:money-glossary-output", "type": "hypothesises-contribution"},
+        {"fromId": "causal:money-alt-linked-map", "id": "causal-edge:money-map-output", "toId": "causal:money-map-output", "type": "hypothesises-contribution"},
+        {"fromId": "causal:money-glossary-output", "id": "causal-edge:money-glossary-outcome", "toId": "causal:money-outcome", "type": "hypothesises-contribution"},
+        {"fromId": "causal:money-map-output", "id": "causal-edge:money-map-outcome", "toId": "causal:money-outcome", "type": "hypothesises-contribution"},
+        {"fromId": "causal:money-outcome", "id": "causal-edge:money-outcome-depends-on-assumption", "toId": "causal:money-assumption", "type": "depends-on"},
+        {"fromId": "causal:money-negative", "id": "causal-edge:money-negative-outcome", "toId": "causal:money-outcome", "type": "may-undermine"},
+        {"fromId": "causal:money-evaluation", "id": "causal-edge:money-evaluation-outcome", "toId": "causal:money-outcome", "type": "tests"}
+      ],
+      "nodes": [
+        {"id": "causal:money-alt-glossary", "optionId": "option:money-glossary", "statement": "Synthetic alternative: publish a static distinctions glossary.", "type": "intervention-option"},
+        {"id": "causal:money-alt-linked-map", "optionId": "option:money-linked-map", "statement": "Synthetic alternative: publish a static source-linked authority map.", "type": "intervention-option"},
+        {"id": "causal:money-assumption", "optionId": null, "statement": "Hypothesis assumes readers notice and understand explicit category distinctions.", "type": "assumption"},
+        {"id": "causal:money-bau", "optionId": "option:money-bau", "statement": "Synthetic business-as-usual comparator: retain dispersed source-linked explanations.", "type": "intervention-option"},
+        {"id": "causal:money-bau-state", "optionId": null, "statement": "Hypothesised comparator state: public-money distinctions remain dispersed.", "type": "output"},
+        {"id": "causal:money-evaluation", "optionId": null, "statement": "A future evaluator would need a human-approved comprehension protocol and non-personal aggregate evidence.", "type": "evaluation-need"},
+        {"id": "causal:money-glossary-output", "optionId": null, "statement": "Hypothesised glossary output: static category distinctions with no authority result.", "type": "output"},
+        {"id": "causal:money-map-output", "optionId": null, "statement": "Hypothesised map output: source-linked distinctions and held unknowns.", "type": "output"},
+        {"id": "causal:money-negative", "optionId": null, "statement": "Readers may mistake navigation order or technical rails for an authority chain.", "type": "negative-pathway"},
+        {"id": "causal:money-outcome", "optionId": null, "statement": "Desired orientation outcome: clearer separation of plan, Estimate, authority, banking, payment and settlement concepts.", "type": "desired-outcome"}
+      ]
+    },
+    "desiredOutcomes": [
+      {
+        "assumptionNodeIds": ["causal:money-assumption"],
+        "evaluationNeedNodeIds": ["causal:money-evaluation"],
+        "id": "outcome:money-category-separation",
+        "negativePathwayNodeIds": ["causal:money-negative"],
+        "statement": "Support orientation about public-money distinctions without tracing a labelled pound or asserting authority."
+      }
+    ],
+    "evidenceAtoms": [
+      {"baseEntityId": "claim:authority-government-parliament-distinct", "baseEntityType": "claim", "exactTextHumanReviewed": false, "genericOfficialHostTrust": false, "id": "evidence:money-mandate", "officialSourceHandling": "link-only", "supportsConclusion": false},
+      {"baseEntityId": "claim:jurisdiction-asymmetric", "baseEntityType": "claim", "exactTextHumanReviewed": false, "genericOfficialHostTrust": false, "id": "evidence:money-jurisdiction", "officialSourceHandling": "link-only", "supportsConclusion": false},
+      {"baseEntityId": "claim:law-guidance-distinct", "baseEntityType": "claim", "exactTextHumanReviewed": false, "genericOfficialHostTrust": false, "id": "evidence:money-law", "officialSourceHandling": "link-only", "supportsConclusion": false},
+      {"baseEntityId": "claim:money-estimates", "baseEntityType": "claim", "exactTextHumanReviewed": false, "genericOfficialHostTrust": false, "id": "evidence:money-estimates", "officialSourceHandling": "link-only", "supportsConclusion": false},
+      {"baseEntityId": "claim:money-parliamentary-authority", "baseEntityType": "claim", "exactTextHumanReviewed": false, "genericOfficialHostTrust": false, "id": "evidence:money-authority", "officialSourceHandling": "link-only", "supportsConclusion": false},
+      {"baseEntityId": "claim:money-gbs", "baseEntityType": "claim", "exactTextHumanReviewed": false, "genericOfficialHostTrust": false, "id": "evidence:money-gbs", "officialSourceHandling": "link-only", "supportsConclusion": false},
+      {"baseEntityId": "claim:delivery-pay", "baseEntityType": "claim", "exactTextHumanReviewed": false, "genericOfficialHostTrust": false, "id": "evidence:money-pay", "officialSourceHandling": "link-only", "supportsConclusion": false},
+      {"baseEntityId": "claim:money-rtgs-chaps", "baseEntityType": "claim", "exactTextHumanReviewed": false, "genericOfficialHostTrust": false, "id": "evidence:money-rtgs", "officialSourceHandling": "link-only", "supportsConclusion": false},
+      {"baseEntityId": "unknown:public-money-trace", "baseEntityType": "unknown", "exactTextHumanReviewed": false, "genericOfficialHostTrust": false, "id": "evidence:money-trace-held", "officialSourceHandling": "link-only", "supportsConclusion": false},
+      {"baseEntityId": "claim:remedy-routes-distinct", "baseEntityType": "claim", "exactTextHumanReviewed": false, "genericOfficialHostTrust": false, "id": "evidence:money-remedy", "officialSourceHandling": "link-only", "supportsConclusion": false}
+    ],
+    "externalContext": [
+      {"bridgeId": "bridge:taxsorted-public-funding", "collection": "fundingMechanisms", "recordId": "mechanism-parliamentary-supply", "supportsClaimIds": [], "taint": "external-context-only"},
+      {"bridgeId": "bridge:taxsorted-public-funding", "collection": "transparencyGaps", "recordId": "gap-pooled-pound-traceability", "supportsClaimIds": [], "taint": "external-context-only"}
+    ],
+    "hold": {
+      "reasonCode": "labelled-pound-traceability-not-established",
+      "state": "held",
+      "stopsProgression": true
+    },
+    "humanGates": [
+      {"authorityOutsideSystem": true, "completed": false, "id": "gate:money-public-authority-review", "label": "Public-money authority review", "planeIds": ["plane:law", "plane:money"], "required": true},
+      {"authorityOutsideSystem": true, "completed": false, "id": "gate:money-evaluation-design", "label": "Independent evaluation-design review", "planeIds": ["plane:delivery", "plane:remedy"], "required": true}
+    ],
+    "id": "dossier:public-money-transparency-information-service",
+    "jurisdictionBranches": [],
+    "options": [
+      {"description": "Retain dispersed explanatory materials as the synthetic comparator.", "id": "option:money-bau", "kind": "business-as-usual", "label": "Dispersed explanations", "selected": false},
+      {"description": "Publish a static glossary distinguishing plans, Estimates, appropriations and payment rails.", "id": "option:money-glossary", "kind": "alternative", "label": "Distinctions glossary", "selected": false},
+      {"description": "Publish a static source-linked map with explicit unknown and hold states.", "id": "option:money-linked-map", "kind": "alternative", "label": "Authority map", "selected": false}
+    ],
+    "planeAssessments": [
+      {"evidenceAtomIds": ["evidence:money-pay", "evidence:money-gbs", "evidence:money-rtgs"], "id": "assessment:money-service-delivery", "planeId": "plane:delivery", "question": "Which information and payment rails are being described without treating them as authority?", "specialistReviewRequired": false, "status": "insufficient-evidence", "unresolvedQuestionIds": ["question:money-service-scope"]},
+      {"evidenceAtomIds": ["evidence:money-jurisdiction"], "id": "assessment:money-service-jurisdiction", "planeId": "plane:jurisdiction", "question": "Would any proposed explanation differ across the four nations or local systems?", "specialistReviewRequired": true, "status": "specialist-review-required", "unresolvedQuestionIds": ["question:money-territorial-scope"]},
+      {"evidenceAtomIds": ["evidence:money-law"], "id": "assessment:money-service-law", "planeId": "plane:law", "question": "Which enactment or instrument supplies authority for each described public-money step?", "specialistReviewRequired": true, "status": "insufficient-evidence", "unresolvedQuestionIds": ["question:money-instrument-authority"]},
+      {"evidenceAtomIds": ["evidence:money-mandate"], "id": "assessment:money-service-mandate", "planeId": "plane:mandate", "question": "Which institution is accountable for each explanatory statement?", "specialistReviewRequired": true, "status": "insufficient-evidence", "unresolvedQuestionIds": ["question:money-accountability-owner"]},
+      {"evidenceAtomIds": ["evidence:money-estimates", "evidence:money-authority", "evidence:money-trace-held"], "id": "assessment:money-service-money", "planeId": "plane:money", "question": "Can plan, Estimate, appropriation, issue, banking, payment and outturn be kept distinct?", "specialistReviewRequired": true, "status": "contested", "unresolvedQuestionIds": ["question:labelled-pound-trace"]},
+      {"evidenceAtomIds": ["evidence:money-remedy"], "id": "assessment:money-service-remedy", "planeId": "plane:remedy", "question": "What accountability or correction route would apply to erroneous explanatory content?", "specialistReviewRequired": true, "status": "not-assessed", "unresolvedQuestionIds": ["question:money-content-correction-route"]}
+    ],
+    "preferredOptionId": null,
+    "proposition": {
+      "affectedTerritories": ["United Kingdom"],
+      "dossierId": "dossier:public-money-transparency-information-service",
+      "humanReviewed": false,
+      "kind": "synthetic-exemplar",
+      "officialProposal": false,
+      "outOfScope": ["authority determination", "labelled-pound tracing", "live financial data", "payment or transaction execution"],
+      "personalDataPresent": false,
+      "scope": "static read-only public-money information orientation",
+      "sourceAuthorship": "codex-assisted-publication-under-recorded-human-direction",
+      "verbatimStatement": "A synthetic static information proposition that could make plans, Estimates, appropriations, issue, banking, payment, settlement and outturn distinctions visible while holding any labelled-pound trace as unestablished."
+    },
+    "routeOrientations": [],
+    "selectionState": "not-selected",
+    "synthetic": true,
+    "title": "Synthetic public-money transparency information service",
+    "trialChamber": {"compatibility": "unavailable", "result": null, "useAsAuthority": false}
+  },
+  {
+    "actionArrays": {"decision": [], "evaluation": [], "implementation": [], "operational": [], "redress": []},
+    "adoption": {"authorityLocation": "outside-this-system", "state": "not-adopted"},
+    "authorityDependencyGraph": {
+      "automaticProgression": false,
+      "edges": [
+        {"fromId": "four-nation:mandate", "id": "dependency:four-nation-mandate-jurisdiction", "rationale": "A broad public mandate does not settle competence for an exact matter.", "toId": "four-nation:england", "type": "does-not-imply"},
+        {"fromId": "four-nation:england", "id": "dependency:england-scotland-alternative", "rationale": "England and Scotland branches are distinct hypothetical territorial pathways, not a single UK route.", "toId": "four-nation:scotland", "type": "alternative"},
+        {"fromId": "four-nation:wales", "id": "dependency:wales-ni-alternative", "rationale": "Wales and Northern Ireland branches require their own hypothetical pathways.", "toId": "four-nation:northern-ireland", "type": "alternative"},
+        {"fromId": "four-nation:law", "id": "dependency:four-nation-law-money", "rationale": "Instrument and competence review precedes any public-money orientation.", "toId": "four-nation:money", "type": "prerequisite"},
+        {"fromId": "four-nation:delivery", "id": "dependency:four-nation-delivery-feedback", "rationale": "Delivery differences may reveal jurisdiction questions without answering them.", "toId": "four-nation:scotland", "type": "feedback"},
+        {"fromId": "four-nation:remedy", "id": "dependency:four-nation-remedy-parallel", "rationale": "Redress orientation remains parallel to service-content design.", "toId": "four-nation:delivery", "type": "parallel"}
+      ],
+      "nodes": [
+        {"assessmentId": "assessment:four-nation-delivery", "baseEntityIds": ["claim:delivery-departments", "claim:delivery-rails-not-authority"], "id": "four-nation:delivery", "label": "Four-nation delivery question", "planeId": "plane:delivery"},
+        {"assessmentId": "assessment:four-nation-jurisdiction", "baseEntityIds": ["claim:jurisdiction-asymmetric", "claim:jurisdiction-local-four-nations"], "id": "four-nation:england", "label": "England branch", "planeId": "plane:jurisdiction"},
+        {"assessmentId": "assessment:four-nation-jurisdiction", "baseEntityIds": ["claim:jurisdiction-scotland"], "id": "four-nation:scotland", "label": "Scotland branch", "planeId": "plane:jurisdiction"},
+        {"assessmentId": "assessment:four-nation-jurisdiction", "baseEntityIds": ["claim:jurisdiction-wales"], "id": "four-nation:wales", "label": "Wales branch", "planeId": "plane:jurisdiction"},
+        {"assessmentId": "assessment:four-nation-jurisdiction", "baseEntityIds": ["claim:jurisdiction-northern-ireland"], "id": "four-nation:northern-ireland", "label": "Northern Ireland branch", "planeId": "plane:jurisdiction"},
+        {"assessmentId": "assessment:four-nation-law", "baseEntityIds": ["claim:law-guidance-distinct"], "id": "four-nation:law", "label": "Four-nation instrument question", "planeId": "plane:law"},
+        {"assessmentId": "assessment:four-nation-mandate", "baseEntityIds": ["claim:authority-government-parliament-distinct"], "id": "four-nation:mandate", "label": "Four-nation accountability question", "planeId": "plane:mandate"},
+        {"assessmentId": "assessment:four-nation-money", "baseEntityIds": ["claim:money-parliamentary-authority"], "id": "four-nation:money", "label": "Four-nation money question", "planeId": "plane:money"},
+        {"assessmentId": "assessment:four-nation-remedy", "baseEntityIds": ["claim:remedy-routes-distinct"], "id": "four-nation:remedy", "label": "Four-nation remedy question", "planeId": "plane:remedy"}
+      ]
+    },
+    "causalChangeHypothesisGraph": {
+      "claimsCausalTruth": false,
+      "edges": [
+        {"fromId": "causal:four-nation-bau", "id": "causal-edge:four-nation-bau-output", "toId": "causal:four-nation-bau-state", "type": "hypothesises-contribution"},
+        {"fromId": "causal:four-nation-alt-branches", "id": "causal-edge:four-nation-branches-output", "toId": "causal:four-nation-branches-output", "type": "hypothesises-contribution"},
+        {"fromId": "causal:four-nation-alt-matrix", "id": "causal-edge:four-nation-matrix-output", "toId": "causal:four-nation-matrix-output", "type": "hypothesises-contribution"},
+        {"fromId": "causal:four-nation-branches-output", "id": "causal-edge:four-nation-branches-outcome", "toId": "causal:four-nation-outcome", "type": "hypothesises-contribution"},
+        {"fromId": "causal:four-nation-matrix-output", "id": "causal-edge:four-nation-matrix-outcome", "toId": "causal:four-nation-outcome", "type": "hypothesises-contribution"},
+        {"fromId": "causal:four-nation-outcome", "id": "causal-edge:four-nation-outcome-depends-on-assumption", "toId": "causal:four-nation-assumption", "type": "depends-on"},
+        {"fromId": "causal:four-nation-negative", "id": "causal-edge:four-nation-negative", "toId": "causal:four-nation-outcome", "type": "may-undermine"},
+        {"fromId": "causal:four-nation-evaluation", "id": "causal-edge:four-nation-evaluation", "toId": "causal:four-nation-outcome", "type": "tests"}
+      ],
+      "nodes": [
+        {"id": "causal:four-nation-alt-branches", "optionId": "option:four-nation-branches", "statement": "Synthetic alternative: four separately held jurisdiction branches.", "type": "intervention-option"},
+        {"id": "causal:four-nation-alt-matrix", "optionId": "option:four-nation-matrix", "statement": "Synthetic alternative: a static comparison matrix with no competence result.", "type": "intervention-option"},
+        {"id": "causal:four-nation-assumption", "optionId": null, "statement": "Hypothesis assumes branch separation reduces accidental UK-wide generalisation.", "type": "assumption"},
+        {"id": "causal:four-nation-bau", "optionId": "option:four-nation-bau", "statement": "Synthetic business-as-usual comparator: one undifferentiated proposition page.", "type": "intervention-option"},
+        {"id": "causal:four-nation-bau-state", "optionId": null, "statement": "Hypothesised comparator state: one undifferentiated proposition page remains.", "type": "output"},
+        {"id": "causal:four-nation-branches-output", "optionId": null, "statement": "Hypothesised branch output: four separate static branches, each held for specialist review.", "type": "output"},
+        {"id": "causal:four-nation-evaluation", "optionId": null, "statement": "Evaluation would require specialist-approved jurisdiction scenarios and a non-personal aggregate protocol.", "type": "evaluation-need"},
+        {"id": "causal:four-nation-matrix-output", "optionId": null, "statement": "Hypothesised matrix output: a non-equivalence comparison with no competence result.", "type": "output"},
+        {"id": "causal:four-nation-negative", "optionId": null, "statement": "A comparison view may still imply equivalence between asymmetric settlements.", "type": "negative-pathway"},
+        {"id": "causal:four-nation-outcome", "optionId": null, "statement": "Desired orientation outcome: visible territorial divergence before any authority or delivery conclusion.", "type": "desired-outcome"}
+      ]
+    },
+    "desiredOutcomes": [
+      {"assumptionNodeIds": ["causal:four-nation-assumption"], "evaluationNeedNodeIds": ["causal:four-nation-evaluation"], "id": "outcome:four-nation-divergence-visible", "negativePathwayNodeIds": ["causal:four-nation-negative"], "statement": "Make four-nation divergence visible without determining competence or choosing a delivery model."}
+    ],
+    "evidenceAtoms": [
+      {"baseEntityId": "claim:authority-government-parliament-distinct", "baseEntityType": "claim", "exactTextHumanReviewed": false, "genericOfficialHostTrust": false, "id": "evidence:four-nation-mandate", "officialSourceHandling": "link-only", "supportsConclusion": false},
+      {"baseEntityId": "claim:jurisdiction-asymmetric", "baseEntityType": "claim", "exactTextHumanReviewed": false, "genericOfficialHostTrust": false, "id": "evidence:four-nation-asymmetry", "officialSourceHandling": "link-only", "supportsConclusion": false},
+      {"baseEntityId": "claim:jurisdiction-local-four-nations", "baseEntityType": "claim", "exactTextHumanReviewed": false, "genericOfficialHostTrust": false, "id": "evidence:four-nation-local", "officialSourceHandling": "link-only", "supportsConclusion": false},
+      {"baseEntityId": "claim:jurisdiction-scotland", "baseEntityType": "claim", "exactTextHumanReviewed": false, "genericOfficialHostTrust": false, "id": "evidence:four-nation-scotland", "officialSourceHandling": "link-only", "supportsConclusion": false},
+      {"baseEntityId": "claim:jurisdiction-wales", "baseEntityType": "claim", "exactTextHumanReviewed": false, "genericOfficialHostTrust": false, "id": "evidence:four-nation-wales", "officialSourceHandling": "link-only", "supportsConclusion": false},
+      {"baseEntityId": "claim:jurisdiction-northern-ireland", "baseEntityType": "claim", "exactTextHumanReviewed": false, "genericOfficialHostTrust": false, "id": "evidence:four-nation-ni", "officialSourceHandling": "link-only", "supportsConclusion": false},
+      {"baseEntityId": "claim:law-guidance-distinct", "baseEntityType": "claim", "exactTextHumanReviewed": false, "genericOfficialHostTrust": false, "id": "evidence:four-nation-law", "officialSourceHandling": "link-only", "supportsConclusion": false},
+      {"baseEntityId": "claim:money-parliamentary-authority", "baseEntityType": "claim", "exactTextHumanReviewed": false, "genericOfficialHostTrust": false, "id": "evidence:four-nation-money", "officialSourceHandling": "link-only", "supportsConclusion": false},
+      {"baseEntityId": "claim:delivery-departments", "baseEntityType": "claim", "exactTextHumanReviewed": false, "genericOfficialHostTrust": false, "id": "evidence:four-nation-delivery", "officialSourceHandling": "link-only", "supportsConclusion": false},
+      {"baseEntityId": "claim:remedy-routes-distinct", "baseEntityType": "claim", "exactTextHumanReviewed": false, "genericOfficialHostTrust": false, "id": "evidence:four-nation-remedy", "officialSourceHandling": "link-only", "supportsConclusion": false}
+    ],
+    "externalContext": [],
+    "hold": {"reasonCode": "four-nation-specialist-competence-review-required", "state": "held", "stopsProgression": true},
+    "humanGates": [
+      {"authorityOutsideSystem": true, "completed": false, "id": "gate:four-nation-competence-review", "label": "Four-nation specialist competence review", "planeIds": ["plane:jurisdiction", "plane:law"], "required": true},
+      {"authorityOutsideSystem": true, "completed": false, "id": "gate:four-nation-service-review", "label": "Four-nation service and remedy review", "planeIds": ["plane:delivery", "plane:remedy"], "required": true}
+    ],
+    "id": "dossier:four-nation-public-service-information",
+    "jurisdictionBranches": [
+      {"baseBodyIds": ["body:uk-government", "body:local-government-england"], "baseClaimIds": ["claim:jurisdiction-local-four-nations"], "id": "branch:england", "jurisdiction": "England", "status": "specialist-review-required"},
+      {"baseBodyIds": ["body:scottish-government", "body:scottish-parliament", "body:local-government-scotland"], "baseClaimIds": ["claim:jurisdiction-scotland"], "id": "branch:scotland", "jurisdiction": "Scotland", "status": "specialist-review-required"},
+      {"baseBodyIds": ["body:welsh-government", "body:senedd", "body:local-government-wales"], "baseClaimIds": ["claim:jurisdiction-wales"], "id": "branch:wales", "jurisdiction": "Wales", "status": "specialist-review-required"},
+      {"baseBodyIds": ["body:northern-ireland-executive", "body:northern-ireland-assembly", "body:local-government-northern-ireland"], "baseClaimIds": ["claim:jurisdiction-northern-ireland"], "id": "branch:northern-ireland", "jurisdiction": "Northern Ireland", "status": "specialist-review-required"}
+    ],
+    "options": [
+      {"description": "Use one undifferentiated proposition page as a synthetic comparator.", "id": "option:four-nation-bau", "kind": "business-as-usual", "label": "Undifferentiated page", "selected": false},
+      {"description": "Publish four separately held territorial information branches.", "id": "option:four-nation-branches", "kind": "alternative", "label": "Separate branches", "selected": false},
+      {"description": "Publish a static comparison matrix that withholds any competence answer.", "id": "option:four-nation-matrix", "kind": "alternative", "label": "Held comparison matrix", "selected": false}
+    ],
+    "planeAssessments": [
+      {"evidenceAtomIds": ["evidence:four-nation-delivery"], "id": "assessment:four-nation-delivery", "planeId": "plane:delivery", "question": "Which delivery bodies and service patterns differ in each nation?", "specialistReviewRequired": true, "status": "specialist-review-required", "unresolvedQuestionIds": ["question:four-nation-delivery-owner"]},
+      {"evidenceAtomIds": ["evidence:four-nation-asymmetry", "evidence:four-nation-local", "evidence:four-nation-scotland", "evidence:four-nation-wales", "evidence:four-nation-ni"], "id": "assessment:four-nation-jurisdiction", "planeId": "plane:jurisdiction", "question": "Which exact matter and territorial competence test applies to each branch?", "specialistReviewRequired": true, "status": "specialist-review-required", "unresolvedQuestionIds": ["question:england-competence", "question:scotland-competence", "question:wales-competence", "question:ni-competence"]},
+      {"evidenceAtomIds": ["evidence:four-nation-law"], "id": "assessment:four-nation-law", "planeId": "plane:law", "question": "Which current enactments and instruments govern each distinct branch?", "specialistReviewRequired": true, "status": "specialist-review-required", "unresolvedQuestionIds": ["question:four-nation-current-law"]},
+      {"evidenceAtomIds": ["evidence:four-nation-mandate"], "id": "assessment:four-nation-mandate", "planeId": "plane:mandate", "question": "Which institution is accountable for the proposition in each branch?", "specialistReviewRequired": true, "status": "insufficient-evidence", "unresolvedQuestionIds": ["question:four-nation-accountability"]},
+      {"evidenceAtomIds": ["evidence:four-nation-money"], "id": "assessment:four-nation-money", "planeId": "plane:money", "question": "Which distinct funding authority and accountability chain would apply?", "specialistReviewRequired": true, "status": "not-assessed", "unresolvedQuestionIds": ["question:four-nation-funding"]},
+      {"evidenceAtomIds": ["evidence:four-nation-remedy"], "id": "assessment:four-nation-remedy", "planeId": "plane:remedy", "question": "Which distinct correction, complaint or challenge route would apply?", "specialistReviewRequired": true, "status": "not-assessed", "unresolvedQuestionIds": ["question:four-nation-remedy"]}
+    ],
+    "preferredOptionId": null,
+    "proposition": {
+      "affectedTerritories": ["England", "Scotland", "Wales", "Northern Ireland"],
+      "dossierId": "dossier:four-nation-public-service-information",
+      "humanReviewed": false,
+      "kind": "synthetic-exemplar",
+      "officialProposal": false,
+      "outOfScope": ["competence determination", "service adoption", "implementation", "funding authority"],
+      "personalDataPresent": false,
+      "scope": "static read-only four-nation public-service information orientation",
+      "sourceAuthorship": "codex-assisted-publication-under-recorded-human-direction",
+      "verbatimStatement": "A synthetic public-service information proposition represented through four distinct England, Scotland, Wales and Northern Ireland branches, each stopped at specialist review."
+    },
+    "routeOrientations": [],
+    "selectionState": "not-selected",
+    "synthetic": true,
+    "title": "Synthetic four-nation public-service information proposition",
+    "trialChamber": {"compatibility": "unavailable", "result": null, "useAsAuthority": false}
+  },
+  {
+    "actionArrays": {"decision": [], "evaluation": [], "implementation": [], "operational": [], "redress": []},
+    "adoption": {"authorityLocation": "outside-this-system", "state": "not-adopted"},
+    "authorityDependencyGraph": {
+      "automaticProgression": false,
+      "edges": [
+        {"fromId": "notice:mandate", "id": "dependency:notice-mandate-law", "rationale": "Institutional responsibility does not itself identify the legal basis of a decision notice.", "toId": "notice:law", "type": "does-not-imply"},
+        {"fromId": "notice:law", "id": "dependency:notice-law-money", "rationale": "Current specialist legal review is a prerequisite to any tax-liability explanation.", "toId": "notice:money", "type": "prerequisite"},
+        {"fromId": "notice:delivery", "id": "dependency:notice-delivery-feedback", "rationale": "Content-design findings may reveal legal or remedy questions but do not resolve them.", "toId": "notice:law", "type": "feedback"},
+        {"fromId": "notice:complaint", "id": "dependency:notice-complaint-review", "rationale": "Complaint and statutory review are separately oriented in parallel; neither is selected.", "toId": "notice:review", "type": "parallel"},
+        {"fromId": "notice:appeal", "id": "dependency:notice-appeal-jr", "rationale": "Tribunal appeal and judicial review are separately oriented in parallel; availability is not determined.", "toId": "notice:jr", "type": "parallel"},
+        {"fromId": "notice:jurisdiction", "id": "dependency:notice-jurisdiction-remedy", "rationale": "Territorial jurisdiction may constrain the relevant challenge orientation.", "toId": "notice:remedy", "type": "prerequisite"}
+      ],
+      "nodes": [
+        {"assessmentId": "assessment:notice-delivery", "baseEntityIds": ["claim:delivery-departments", "body:hmrc"], "id": "notice:delivery", "label": "Explanatory-content delivery question", "planeId": "plane:delivery"},
+        {"assessmentId": "assessment:notice-jurisdiction", "baseEntityIds": ["claim:jurisdiction-asymmetric"], "id": "notice:jurisdiction", "label": "Notice jurisdiction question", "planeId": "plane:jurisdiction"},
+        {"assessmentId": "assessment:notice-law", "baseEntityIds": ["claim:law-guidance-distinct"], "id": "notice:law", "label": "Notice law question", "planeId": "plane:law"},
+        {"assessmentId": "assessment:notice-mandate", "baseEntityIds": ["claim:money-hmrc-role"], "id": "notice:mandate", "label": "HMRC responsibility question", "planeId": "plane:mandate"},
+        {"assessmentId": "assessment:notice-money", "baseEntityIds": ["claim:money-tax-policy-administration"], "id": "notice:money", "label": "Tax administration distinction question", "planeId": "plane:money"},
+        {"assessmentId": "assessment:notice-remedy", "baseEntityIds": ["claim:remedy-routes-distinct"], "id": "notice:remedy", "label": "Challenge-route orientation question", "planeId": "plane:remedy"},
+        {"assessmentId": "assessment:notice-remedy", "baseEntityIds": ["redress:hmrc-service-complaint"], "id": "notice:complaint", "label": "Service-complaint orientation", "planeId": "plane:remedy"},
+        {"assessmentId": "assessment:notice-remedy", "baseEntityIds": ["redress:hmrc-statutory-review"], "id": "notice:review", "label": "Statutory-review orientation", "planeId": "plane:remedy"},
+        {"assessmentId": "assessment:notice-remedy", "baseEntityIds": ["redress:tax-tribunal-appeal"], "id": "notice:appeal", "label": "Tribunal-appeal orientation", "planeId": "plane:remedy"},
+        {"assessmentId": "assessment:notice-remedy", "baseEntityIds": ["redress:judicial-review-england-wales"], "id": "notice:jr", "label": "Judicial-review orientation", "planeId": "plane:remedy"}
+      ]
+    },
+    "causalChangeHypothesisGraph": {
+      "claimsCausalTruth": false,
+      "edges": [
+        {"fromId": "causal:notice-bau", "id": "causal-edge:notice-bau-output", "toId": "causal:notice-bau-state", "type": "hypothesises-contribution"},
+        {"fromId": "causal:notice-alt-layered", "id": "causal-edge:notice-layered-output", "toId": "causal:notice-layered-output", "type": "hypothesises-contribution"},
+        {"fromId": "causal:notice-alt-route-map", "id": "causal-edge:notice-route-output", "toId": "causal:notice-route-output", "type": "hypothesises-contribution"},
+        {"fromId": "causal:notice-layered-output", "id": "causal-edge:notice-layered-outcome", "toId": "causal:notice-outcome", "type": "hypothesises-contribution"},
+        {"fromId": "causal:notice-route-output", "id": "causal-edge:notice-route-outcome", "toId": "causal:notice-outcome", "type": "hypothesises-contribution"},
+        {"fromId": "causal:notice-outcome", "id": "causal-edge:notice-outcome-depends-on-assumption", "toId": "causal:notice-assumption", "type": "depends-on"},
+        {"fromId": "causal:notice-negative", "id": "causal-edge:notice-negative", "toId": "causal:notice-outcome", "type": "may-undermine"},
+        {"fromId": "causal:notice-evaluation", "id": "causal-edge:notice-evaluation", "toId": "causal:notice-outcome", "type": "tests"}
+      ],
+      "nodes": [
+        {"id": "causal:notice-alt-layered", "optionId": "option:notice-layered", "statement": "Synthetic alternative: layered explanatory content with explicit uncertainty labels.", "type": "intervention-option"},
+        {"id": "causal:notice-alt-route-map", "optionId": "option:notice-route-map", "statement": "Synthetic alternative: a non-directive static route-distinction map.", "type": "intervention-option"},
+        {"id": "causal:notice-assumption", "optionId": null, "statement": "Hypothesis assumes clearer distinctions can improve orientation without implying case-specific rights.", "type": "assumption"},
+        {"id": "causal:notice-bau", "optionId": "option:notice-bau", "statement": "Synthetic business-as-usual comparator: retain the current generic explanatory-content pattern.", "type": "intervention-option"},
+        {"id": "causal:notice-bau-state", "optionId": null, "statement": "Hypothesised comparator state: the generic explanatory-content pattern remains.", "type": "output"},
+        {"id": "causal:notice-evaluation", "optionId": null, "statement": "Evaluation would require human-approved research, accessibility review and safeguards against deadline inference.", "type": "evaluation-need"},
+        {"id": "causal:notice-layered-output", "optionId": null, "statement": "Hypothesised layered output: static explanation with explicit uncertainty boundaries.", "type": "output"},
+        {"id": "causal:notice-negative", "optionId": null, "statement": "Readers may treat a route distinction as a route recommendation or deadline assurance.", "type": "negative-pathway"},
+        {"id": "causal:notice-outcome", "optionId": null, "statement": "Desired orientation outcome: clearer separation of explanation, complaint, review, appeal and judicial review.", "type": "desired-outcome"},
+        {"id": "causal:notice-route-output", "optionId": null, "statement": "Hypothesised route-map output: parallel distinctions with no route or deadline result.", "type": "output"}
+      ]
+    },
+    "desiredOutcomes": [
+      {"assumptionNodeIds": ["causal:notice-assumption"], "evaluationNeedNodeIds": ["causal:notice-evaluation"], "id": "outcome:notice-route-distinction", "negativePathwayNodeIds": ["causal:notice-negative"], "statement": "Support route distinction without determining a route, deadline, eligibility, liability or legal effect."}
+    ],
+    "evidenceAtoms": [
+      {"baseEntityId": "claim:money-hmrc-role", "baseEntityType": "claim", "exactTextHumanReviewed": false, "genericOfficialHostTrust": false, "id": "evidence:notice-mandate", "officialSourceHandling": "link-only", "supportsConclusion": false},
+      {"baseEntityId": "claim:jurisdiction-asymmetric", "baseEntityType": "claim", "exactTextHumanReviewed": false, "genericOfficialHostTrust": false, "id": "evidence:notice-jurisdiction", "officialSourceHandling": "link-only", "supportsConclusion": false},
+      {"baseEntityId": "claim:law-guidance-distinct", "baseEntityType": "claim", "exactTextHumanReviewed": false, "genericOfficialHostTrust": false, "id": "evidence:notice-law", "officialSourceHandling": "link-only", "supportsConclusion": false},
+      {"baseEntityId": "claim:money-tax-policy-administration", "baseEntityType": "claim", "exactTextHumanReviewed": false, "genericOfficialHostTrust": false, "id": "evidence:notice-money", "officialSourceHandling": "link-only", "supportsConclusion": false},
+      {"baseEntityId": "claim:delivery-departments", "baseEntityType": "claim", "exactTextHumanReviewed": false, "genericOfficialHostTrust": false, "id": "evidence:notice-delivery", "officialSourceHandling": "link-only", "supportsConclusion": false},
+      {"baseEntityId": "claim:remedy-routes-distinct", "baseEntityType": "claim", "exactTextHumanReviewed": false, "genericOfficialHostTrust": false, "id": "evidence:notice-routes", "officialSourceHandling": "link-only", "supportsConclusion": false},
+      {"baseEntityId": "redress:hmrc-service-complaint", "baseEntityType": "redressRoute", "exactTextHumanReviewed": false, "genericOfficialHostTrust": false, "id": "evidence:notice-complaint", "officialSourceHandling": "link-only", "supportsConclusion": false},
+      {"baseEntityId": "redress:hmrc-statutory-review", "baseEntityType": "redressRoute", "exactTextHumanReviewed": false, "genericOfficialHostTrust": false, "id": "evidence:notice-review", "officialSourceHandling": "link-only", "supportsConclusion": false},
+      {"baseEntityId": "redress:tax-tribunal-appeal", "baseEntityType": "redressRoute", "exactTextHumanReviewed": false, "genericOfficialHostTrust": false, "id": "evidence:notice-appeal", "officialSourceHandling": "link-only", "supportsConclusion": false},
+      {"baseEntityId": "redress:judicial-review-england-wales", "baseEntityType": "redressRoute", "exactTextHumanReviewed": false, "genericOfficialHostTrust": false, "id": "evidence:notice-jr", "officialSourceHandling": "link-only", "supportsConclusion": false}
+    ],
+    "externalContext": [
+      {"bridgeId": "bridge:taxsorted-tax-system", "collection": "pipelineStages", "recordId": "stage-review-and-appeal", "supportsClaimIds": [], "taint": "external-context-only"},
+      {"bridgeId": "bridge:taxsorted-tax-system", "collection": "pipelineStages", "recordId": "stage-service-complaint", "supportsClaimIds": [], "taint": "external-context-only"}
+    ],
+    "hold": {"reasonCode": "route-deadline-and-eligibility-insufficient-evidence", "state": "held", "stopsProgression": true},
+    "humanGates": [
+      {"authorityOutsideSystem": true, "completed": false, "id": "gate:notice-specialist-tax-legal-review", "label": "Specialist tax and legal review", "planeIds": ["plane:law", "plane:money", "plane:remedy"], "required": true},
+      {"authorityOutsideSystem": true, "completed": false, "id": "gate:notice-accessibility-research", "label": "Accessibility and research ethics review", "planeIds": ["plane:delivery"], "required": true}
+    ],
+    "id": "dossier:hmrc-decision-notice-explanatory-content",
+    "jurisdictionBranches": [],
+    "options": [
+      {"description": "Retain a generic explanatory-content pattern as the synthetic comparator.", "id": "option:notice-bau", "kind": "business-as-usual", "label": "Generic explanation", "selected": false},
+      {"description": "Explore layered static explanations with visible uncertainty and non-advice boundaries.", "id": "option:notice-layered", "kind": "alternative", "label": "Layered explanation", "selected": false},
+      {"description": "Explore a static distinction map that does not select or rank challenge routes.", "id": "option:notice-route-map", "kind": "alternative", "label": "Route distinction map", "selected": false}
+    ],
+    "planeAssessments": [
+      {"evidenceAtomIds": ["evidence:notice-delivery"], "id": "assessment:notice-delivery", "planeId": "plane:delivery", "question": "Could static explanatory content make distinctions visible without changing a decision or operating a case?", "specialistReviewRequired": true, "status": "insufficient-evidence", "unresolvedQuestionIds": ["question:notice-accessibility", "question:notice-content-governance"]},
+      {"evidenceAtomIds": ["evidence:notice-jurisdiction"], "id": "assessment:notice-jurisdiction", "planeId": "plane:jurisdiction", "question": "Which territorial and tribunal jurisdiction applies to an exact decision type?", "specialistReviewRequired": true, "status": "insufficient-evidence", "unresolvedQuestionIds": ["question:notice-jurisdiction"]},
+      {"evidenceAtomIds": ["evidence:notice-law"], "id": "assessment:notice-law", "planeId": "plane:law", "question": "Which current law and notice-specific instrument governs an exact decision?", "specialistReviewRequired": true, "status": "insufficient-evidence", "unresolvedQuestionIds": ["question:notice-current-law"]},
+      {"evidenceAtomIds": ["evidence:notice-mandate"], "id": "assessment:notice-mandate", "planeId": "plane:mandate", "question": "Which public institution owns the decision and explanatory-content accountability?", "specialistReviewRequired": true, "status": "insufficient-evidence", "unresolvedQuestionIds": ["question:notice-accountability"]},
+      {"evidenceAtomIds": ["evidence:notice-money"], "id": "assessment:notice-money", "planeId": "plane:money", "question": "Can policy, administration, liability and payment remain visibly separate?", "specialistReviewRequired": true, "status": "insufficient-evidence", "unresolvedQuestionIds": ["question:notice-liability-boundary"]},
+      {"evidenceAtomIds": ["evidence:notice-routes", "evidence:notice-complaint", "evidence:notice-review", "evidence:notice-appeal", "evidence:notice-jr"], "id": "assessment:notice-remedy", "planeId": "plane:remedy", "question": "Which complaint, review, appeal or judicial-review routes might require separate specialist orientation?", "specialistReviewRequired": true, "status": "insufficient-evidence", "unresolvedQuestionIds": ["question:notice-route", "question:notice-deadline", "question:notice-eligibility"]}
+    ],
+    "preferredOptionId": null,
+    "proposition": {
+      "affectedTerritories": ["United Kingdom"],
+      "dossierId": "dossier:hmrc-decision-notice-explanatory-content",
+      "humanReviewed": false,
+      "kind": "synthetic-exemplar",
+      "officialProposal": false,
+      "outOfScope": ["case handling", "route selection", "deadline determination", "eligibility determination", "tax liability determination"],
+      "personalDataPresent": false,
+      "scope": "static read-only explanatory-content orientation",
+      "sourceAuthorship": "codex-assisted-publication-under-recorded-human-direction",
+      "verbatimStatement": "A synthetic HMRC decision-notice explanatory-content redesign that keeps complaint, statutory review, tribunal appeal and judicial review parallel and determines no route, deadline, eligibility, liability or legal effect."
+    },
+    "routeOrientations": [
+      {"baseRedressRouteId": "redress:hmrc-service-complaint", "deadlineDetermined": false, "eligibilityDetermined": false, "id": "route-orientation:hmrc-complaint", "relationship": "parallel", "routeDetermined": false},
+      {"baseRedressRouteId": "redress:hmrc-statutory-review", "deadlineDetermined": false, "eligibilityDetermined": false, "id": "route-orientation:hmrc-review", "relationship": "parallel", "routeDetermined": false},
+      {"baseRedressRouteId": "redress:tax-tribunal-appeal", "deadlineDetermined": false, "eligibilityDetermined": false, "id": "route-orientation:tax-tribunal-appeal", "relationship": "parallel", "routeDetermined": false},
+      {"baseRedressRouteId": "redress:judicial-review-england-wales", "deadlineDetermined": false, "eligibilityDetermined": false, "id": "route-orientation:judicial-review", "relationship": "parallel", "routeDetermined": false}
+    ],
+    "selectionState": "not-selected",
+    "synthetic": true,
+    "title": "Synthetic HMRC decision-notice explanatory-content redesign",
+    "trialChamber": {"compatibility": "unavailable", "result": null, "useAsAuthority": false}
+  }
+]

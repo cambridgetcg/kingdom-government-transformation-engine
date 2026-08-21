@@ -1,0 +1,301 @@
+import { prettyCanonicalJson } from '../src/io.mjs'
+
+const ref = (name) => ({ $ref: `#/$defs/${name}` })
+const str = (minLength = 1, maxLength = 500) => ({ type: 'string', minLength, maxLength })
+const constant = (value) => ({ const: value, type: value === null ? 'null' : typeof value })
+const enumeration = (values) => ({ type: 'string', enum: values })
+const array = (items, minItems = 0, maxItems = 100, uniqueItems = false) => ({ type: 'array', items, minItems, maxItems, uniqueItems })
+const object = (properties) => ({
+  type: 'object',
+  additionalProperties: false,
+  properties,
+  required: Object.keys(properties).sort(),
+})
+
+const receipt = { type: 'string', pattern: '^sha256:[0-9a-f]{64}$', minLength: 71, maxLength: 71 }
+const id = { type: 'string', pattern: '^[a-z][a-z0-9-]*(?::[a-z0-9][a-z0-9-]*)+$', minLength: 3, maxLength: 160 }
+const baseId = { type: 'string', pattern: '^[a-z][A-Za-z0-9-]*(?::[a-z0-9][a-z0-9-]*)+$', minLength: 3, maxLength: 160 }
+const date = { type: 'string', format: 'date' }
+const planeId = enumeration(['plane:delivery', 'plane:jurisdiction', 'plane:law', 'plane:mandate', 'plane:money', 'plane:remedy'])
+const status = enumeration(['not-assessed', 'insufficient-evidence', 'contested', 'specialist-review-required', 'orientation-supported'])
+const idArray = (min = 0, max = 100) => array(id, min, max, true)
+const baseIdArray = (min = 0, max = 100) => array(baseId, min, max, true)
+const planeIdArray = (min = 0, max = 6) => array(planeId, min, max, true)
+const emptyActions = object({
+  decision: idArray(0, 0),
+  evaluation: idArray(0, 0),
+  implementation: idArray(0, 0),
+  operational: idArray(0, 0),
+  redress: idArray(0, 0),
+})
+const adoption = object({ authorityLocation: constant('outside-this-system'), state: constant('not-adopted') })
+const trialChamber = object({ compatibility: constant('unavailable'), result: constant(null), useAsAuthority: constant(false) })
+
+const boundaryNames = [
+  'accountAccess', 'acceptsFreeText', 'advice', 'approval', 'authorityCreation', 'automatedAction', 'automatedDecision',
+  'automaticProgression', 'credentialAccess', 'credentialCollection', 'currentOfficeholders', 'deadlineDetermination',
+  'decisionAuthority', 'deployment', 'eligibilityDetermination', 'externalCrosswalkAsGovernmentEvidence', 'externalEffects',
+  'filing', 'governmentAffiliation', 'identityAccess', 'identityCollection', 'legalAdvice', 'legalConclusion', 'liabilityDetermination',
+  'liveData', 'llmRuntime', 'mcpExposure', 'networkAtBuildOrRuntime', 'officialEndorsement', 'partyProfiles', 'payment', 'peopleProfiles', 'personalData',
+  'personalDataCollection', 'preferredOptionSelection', 'procurement', 'publicForm', 'ranking', 'runtimeFetch', 'scoring',
+  'spending', 'submissions', 'taxAdvice', 'taxConclusion', 'transaction',
+]
+const boundaries = object(Object.fromEntries(boundaryNames.map((name) => [name, constant(false)])))
+
+const schema = {
+  $schema: 'https://json-schema.org/draft/2020-12/schema',
+  $id: 'https://thekingdom.dev/government/transformations/schemas/v0.1/public-snapshot.schema.json',
+  title: 'KINGDOM UK Government Transformation Orientation Engine public snapshot v0.1',
+  description: 'Closed, offline, read-only schema for visibly synthetic transformation-orientation dossiers. It confers no authority and performs no action.',
+  ...object({
+    schema: constant('kingdom.government-transformation-orientation-public-snapshot/0.1'),
+    contractVersion: constant('0.1.0'),
+    title: constant('Government Transformation Engine: United Kingdom'),
+    asOf: { ...date, const: '2026-08-21' },
+    urls: ref('urls'),
+    jurisdiction: ref('jurisdiction'),
+    authorship: ref('authorship'),
+    adoption: ref('adoption'),
+    boundaries: ref('boundaries'),
+    freshness: ref('freshness'),
+    trialChamber: ref('trialChamber'),
+    baseSnapshot: ref('baseSnapshot'),
+    categoryErrorRules: array(ref('categoryErrorRule'), 18, 18, true),
+    actionArrays: ref('actionArrays'),
+    dossiers: array(ref('dossier'), 3, 3, true),
+    counts: ref('counts'),
+    buildProvenance: ref('buildProvenance'),
+  }),
+  $defs: {
+    actionArrays: emptyActions,
+    adoption,
+    authorityDependencyEdge: object({
+      fromId: id,
+      id,
+      rationale: str(10, 500),
+      toId: id,
+      type: enumeration(['prerequisite', 'parallel', 'alternative', 'feedback', 'does-not-imply']),
+    }),
+    authorityDependencyGraph: object({
+      automaticProgression: constant(false),
+      edges: array(ref('authorityDependencyEdge'), 1, 40, true),
+      nodes: array(ref('authorityDependencyNode'), 6, 30, true),
+    }),
+    authorityDependencyNode: object({
+      assessmentId: id,
+      baseEntityIds: baseIdArray(1, 20),
+      id,
+      label: str(3, 160),
+      planeId,
+    }),
+    authorship: object({
+      compiledBy: constant('codex-assisted-publication'),
+      exactTextHumanReviewed: constant(false),
+      humanDirectionRecorded: constant(true),
+      humanReviewCompleted: constant(false),
+      humanReviewRequired: constant(true),
+      origin: constant('maintainer-authorized-assisted-publication'),
+    }),
+    baseSnapshot: object({
+      admissionMode: constant('exact-immutable-vendored-snapshot-only'),
+      asOf: { ...date, const: '2026-08-21' },
+      byteReceipt: { ...receipt, const: 'sha256:1751b2ac331d6a1283cbf57b5b6961d9071f528298f97589fcbd7cf36407e139' },
+      bytes: { type: 'integer', const: 196005 },
+      canonicalReceipt: { ...receipt, const: 'sha256:cc2c22e356cef0160ed5da1e2fd756bad5801f574c4cb064dec157b9207b9739' },
+      canonicalUrl: { type: 'string', format: 'uri', const: 'https://thekingdom.dev/government/uk-government-engine-2026-08-21.json' },
+      contractVersion: constant('0.1.0'),
+      exactTextHumanReviewed: constant(false),
+      guideUrl: { type: 'string', format: 'uri', const: 'https://thekingdom.dev/UK-GOVERNMENT-ENGINE-v0.1.md' },
+      nextReviewDue: { ...date, const: '2026-09-21' },
+      officialSourceHandling: constant('link-only'),
+      path: constant('vendor/government-engine/government-2026-08-21.json'),
+      planeIds: planeIdArray(6, 6),
+      runtimeFetch: constant(false),
+      schemaUrl: { type: 'string', format: 'uri', const: 'https://thekingdom.dev/government/schemas/v0.1/public-snapshot.schema.json' },
+      schema: constant('kingdom.government-engine-public-snapshot/0.1'),
+    }),
+    boundaries,
+    buildProvenance: object({
+      deterministic: constant(true),
+      inputCanonicalReceipts: object({
+        config: { ...receipt, const: 'sha256:24cf7e2f470ba154a956c1665e9b4a130497410428720e521c6d3b8af34b8c4d' },
+        dossiers: { ...receipt, const: 'sha256:5e487ca2f1938bcaf8da13ca1db956eb356f587eade6a92ce179f70686759929' },
+      }),
+      networkUsed: constant(false),
+      schemaByteReceipt: receipt,
+      schemaCanonicalReceipt: receipt,
+    }),
+    categoryErrorRule: object({
+      id,
+      left: enumeration(['appropriation', 'complaint', 'estimate', 'external-crosswalk', 'forecast', 'freshness', 'guidance', 'issue', 'mandate', 'payment-or-settlement', 'payment-rail', 'plan', 'service-or-api', 'topic']),
+      relation: constant('does-not-imply'),
+      right: enumeration(['appeal-or-deadline-protection', 'appropriation', 'authority', 'credit', 'decision-authority', 'estimate', 'issue', 'law', 'legal-effect', 'legal-power', 'legislative-or-executive-competence', 'liability', 'official-evidence', 'outturn', 'spending-power']),
+    }),
+    causalEdge: object({
+      fromId: id,
+      id,
+      toId: id,
+      type: enumeration(['hypothesises-contribution', 'depends-on', 'may-undermine', 'tests']),
+    }),
+    causalGraph: object({
+      claimsCausalTruth: constant(false),
+      edges: array(ref('causalEdge'), 1, 50, true),
+      nodes: array(ref('causalNode'), 6, 50, true),
+    }),
+    causalNode: object({
+      id,
+      optionId: { type: ['string', 'null'] },
+      statement: str(10, 500),
+      type: enumeration(['intervention-option', 'assumption', 'output', 'desired-outcome', 'negative-pathway', 'evaluation-need']),
+    }),
+    counts: object({
+      authorityDependencyEdges: { type: 'integer', const: 17 },
+      authorityDependencyNodes: { type: 'integer', const: 25 },
+      causalEdges: { type: 'integer', const: 24 },
+      causalNodes: { type: 'integer', const: 30 },
+      desiredOutcomes: { type: 'integer', const: 3 },
+      dossiers: { type: 'integer', const: 3 },
+      evidenceAtoms: { type: 'integer', const: 30 },
+      externalContextBindings: { type: 'integer', const: 4 },
+      humanGates: { type: 'integer', const: 6 },
+      jurisdictionBranches: { type: 'integer', const: 4 },
+      options: { type: 'integer', const: 9 },
+      planeAssessments: { type: 'integer', const: 18 },
+      routeOrientations: { type: 'integer', const: 4 },
+    }),
+    desiredOutcome: object({
+      assumptionNodeIds: idArray(1, 20),
+      evaluationNeedNodeIds: idArray(1, 20),
+      id,
+      negativePathwayNodeIds: idArray(1, 20),
+      statement: str(10, 500),
+    }),
+    dossier: object({
+      actionArrays: ref('actionArrays'),
+      adoption: ref('adoption'),
+      authorityDependencyGraph: ref('authorityDependencyGraph'),
+      causalChangeHypothesisGraph: ref('causalGraph'),
+      desiredOutcomes: array(ref('desiredOutcome'), 1, 20, true),
+      evidenceAtoms: array(ref('evidenceAtom'), 1, 80, true),
+      externalContext: array(ref('externalContext'), 0, 20, true),
+      hold: ref('hold'),
+      humanGates: array(ref('humanGate'), 1, 20, true),
+      id,
+      jurisdictionBranches: array(ref('jurisdictionBranch'), 0, 4, true),
+      options: array(ref('option'), 3, 20, true),
+      planeAssessments: array(ref('planeAssessment'), 6, 6, true),
+      preferredOptionId: constant(null),
+      proposition: ref('proposition'),
+      routeOrientations: array(ref('routeOrientation'), 0, 10, true),
+      selectionState: constant('not-selected'),
+      synthetic: constant(true),
+      title: { type: 'string', pattern: '^Synthetic ', minLength: 12, maxLength: 200 },
+      trialChamber: ref('trialChamber'),
+    }),
+    evidenceAtom: object({
+      baseEntityId: baseId,
+      baseEntityType: enumeration(['body', 'claim', 'flow', 'plane', 'rail', 'redressRoute', 'relation', 'source', 'unknown']),
+      baseSnapshotByteReceipt: { ...receipt, const: 'sha256:1751b2ac331d6a1283cbf57b5b6961d9071f528298f97589fcbd7cf36407e139' },
+      baseSnapshotCanonicalReceipt: { ...receipt, const: 'sha256:cc2c22e356cef0160ed5da1e2fd756bad5801f574c4cb064dec157b9207b9739' },
+      baseSnapshotCanonicalUrl: { type: 'string', format: 'uri', const: 'https://thekingdom.dev/government/uk-government-engine-2026-08-21.json' },
+      evidenceUse: constant('orientation-only'),
+      exactTextHumanReviewed: constant(false),
+      genericOfficialHostTrust: constant(false),
+      id,
+      officialSourceHandling: constant('link-only'),
+      supportsConclusion: constant(false),
+    }),
+    externalContext: object({
+      baseSnapshotByteReceipt: { ...receipt, const: 'sha256:1751b2ac331d6a1283cbf57b5b6961d9071f528298f97589fcbd7cf36407e139' },
+      baseSnapshotCanonicalReceipt: { ...receipt, const: 'sha256:cc2c22e356cef0160ed5da1e2fd756bad5801f574c4cb064dec157b9207b9739' },
+      baseSnapshotCanonicalUrl: { type: 'string', format: 'uri', const: 'https://thekingdom.dev/government/uk-government-engine-2026-08-21.json' },
+      bridgeId: enumeration(['bridge:taxsorted-public-funding', 'bridge:taxsorted-tax-system']),
+      collection: enumeration(['fundingMechanisms', 'pipelineStages', 'transparencyGaps']),
+      recordId: enumeration(['gap-pooled-pound-traceability', 'mechanism-parliamentary-supply', 'stage-review-and-appeal', 'stage-service-complaint']),
+      supportsClaimIds: idArray(0, 0),
+      taint: constant('external-context-only'),
+    }),
+    freshness: object({
+      automaticRuntimeEnforcement: constant(false),
+      expiredState: constant('hard-quarantined-historical-only'),
+      immutableAfterDeadline: constant('historical-orientation-only'),
+      inheritsBaseReviewWindow: constant(true),
+      mutableAliasPolicy: constant('retire-or-replace'),
+      nextReviewDue: { ...date, const: '2026-09-21' },
+      readerTimeBehavior: constant('immutable-artifact-remains-available-but-must-be-treated-as-historical-only-after-review-deadline'),
+      readerTimeStateNotEmbedded: constant(true),
+      releaseGateRequired: constant(true),
+      stateAtPublication: constant('within-review-window'),
+    }),
+    hold: object({
+      reasonCode: str(3, 160),
+      state: constant('held'),
+      stopsProgression: constant(true),
+    }),
+    humanGate: object({
+      authorityOutsideSystem: constant(true),
+      completed: constant(false),
+      id,
+      label: str(3, 200),
+      planeIds: planeIdArray(1, 6),
+      required: constant(true),
+    }),
+    jurisdiction: object({ code: constant('UK'), label: constant('United Kingdom'), scope: constant('orientation-only') }),
+    jurisdictionBranch: object({
+      baseBodyIds: baseIdArray(1, 10),
+      baseClaimIds: baseIdArray(1, 10),
+      id,
+      jurisdiction: enumeration(['England', 'Scotland', 'Wales', 'Northern Ireland']),
+      status: constant('specialist-review-required'),
+    }),
+    option: object({
+      description: str(10, 500),
+      id,
+      kind: enumeration(['business-as-usual', 'alternative']),
+      label: str(3, 160),
+      selected: constant(false),
+    }),
+    planeAssessment: object({
+      evidenceAtomIds: idArray(1, 30),
+      id,
+      planeId,
+      question: str(10, 500),
+      specialistReviewRequired: { type: 'boolean' },
+      status,
+      unresolvedQuestionIds: idArray(1, 20),
+    }),
+    proposition: object({
+      affectedTerritories: array(str(2, 80), 1, 4, true),
+      canonicalReceipt: receipt,
+      dossierId: id,
+      humanReviewed: constant(false),
+      kind: constant('synthetic-exemplar'),
+      officialProposal: constant(false),
+      outOfScope: array(str(3, 160), 3, 20, true),
+      personalDataPresent: constant(false),
+      scope: str(10, 300),
+      sourceAuthorship: constant('codex-assisted-publication-under-recorded-human-direction'),
+      verbatimStatement: str(40, 1000),
+    }),
+    routeOrientation: object({
+      baseRedressRouteId: enumeration(['redress:hmrc-service-complaint', 'redress:hmrc-statutory-review', 'redress:tax-tribunal-appeal', 'redress:judicial-review-england-wales']),
+      deadlineDetermined: constant(false),
+      eligibilityDetermined: constant(false),
+      id,
+      relationship: constant('parallel'),
+      routeDetermined: constant(false),
+    }),
+    trialChamber,
+    urls: object({
+      canonical: { type: 'string', format: 'uri', const: 'https://thekingdom.dev/government/uk-government-transformation-engine-2026-08-21.json' },
+      guide: { type: 'string', format: 'uri', const: 'https://thekingdom.dev/UK-GOVERNMENT-TRANSFORMATION-ENGINE-v0.1.md' },
+      human: { type: 'string', format: 'uri', const: 'https://thekingdom.dev/government-transformation-engine/' },
+      mutableAlias: { type: 'string', format: 'uri', const: 'https://thekingdom.dev/government-transformations.json' },
+      producer: { type: 'string', format: 'uri', const: 'https://github.com/cambridgetcg/kingdom-government-transformation-engine/tree/v0.1.0' },
+      repository: { type: 'string', format: 'uri', const: 'https://github.com/cambridgetcg/kingdom-government-transformation-engine' },
+      schema: { type: 'string', format: 'uri', const: 'https://thekingdom.dev/government/transformations/schemas/v0.1/public-snapshot.schema.json' },
+    }),
+  },
+}
+
+process.stdout.write(prettyCanonicalJson(schema))

@@ -1,0 +1,22 @@
+{
+  "name": "@kingdom/government-transformation-engine",
+  "version": "0.1.0",
+  "description": "Deterministic, offline UK Government Transformation Orientation Engine with synthetic held dossiers and no decision authority.",
+  "type": "module",
+  "private": true,
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=20"
+  },
+  "bin": {
+    "kingdom-government-transformation": "./src/cli.mjs"
+  },
+  "scripts": {
+    "test": "node --test",
+    "validate": "node ./src/cli.mjs validate",
+    "build": "node ./src/cli.mjs build",
+    "build:check": "node ./src/cli.mjs check",
+    "overview": "node ./src/cli.mjs overview",
+    "check": "node --check ./src/io.mjs && node --check ./src/schema-validator.mjs && node --check ./src/transformation.mjs && node --check ./src/cli.mjs && node ./src/cli.mjs check"
+  }
+}

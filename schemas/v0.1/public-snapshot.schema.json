@@ -1,0 +1,1903 @@
+{
+  "$defs": {
+    "actionArrays": {
+      "additionalProperties": false,
+      "properties": {
+        "decision": {
+          "items": {
+            "maxLength": 160,
+            "minLength": 3,
+            "pattern": "^[a-z][a-z0-9-]*(?::[a-z0-9][a-z0-9-]*)+$",
+            "type": "string"
+          },
+          "maxItems": 0,
+          "minItems": 0,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "evaluation": {
+          "items": {
+            "maxLength": 160,
+            "minLength": 3,
+            "pattern": "^[a-z][a-z0-9-]*(?::[a-z0-9][a-z0-9-]*)+$",
+            "type": "string"
+          },
+          "maxItems": 0,
+          "minItems": 0,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "implementation": {
+          "items": {
+            "maxLength": 160,
+            "minLength": 3,
+            "pattern": "^[a-z][a-z0-9-]*(?::[a-z0-9][a-z0-9-]*)+$",
+            "type": "string"
+          },
+          "maxItems": 0,
+          "minItems": 0,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "operational": {
+          "items": {
+            "maxLength": 160,
+            "minLength": 3,
+            "pattern": "^[a-z][a-z0-9-]*(?::[a-z0-9][a-z0-9-]*)+$",
+            "type": "string"
+          },
+          "maxItems": 0,
+          "minItems": 0,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "redress": {
+          "items": {
+            "maxLength": 160,
+            "minLength": 3,
+            "pattern": "^[a-z][a-z0-9-]*(?::[a-z0-9][a-z0-9-]*)+$",
+            "type": "string"
+          },
+          "maxItems": 0,
+          "minItems": 0,
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "decision",
+        "evaluation",
+        "implementation",
+        "operational",
+        "redress"
+      ],
+      "type": "object"
+    },
+    "adoption": {
+      "additionalProperties": false,
+      "properties": {
+        "authorityLocation": {
+          "const": "outside-this-system",
+          "type": "string"
+        },
+        "state": {
+          "const": "not-adopted",
+          "type": "string"
+        }
+      },
+      "required": [
+        "authorityLocation",
+        "state"
+      ],
+      "type": "object"
+    },
+    "authorityDependencyEdge": {
+      "additionalProperties": false,
+      "properties": {
+        "fromId": {
+          "maxLength": 160,
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9-]*(?::[a-z0-9][a-z0-9-]*)+$",
+          "type": "string"
+        },
+        "id": {
+          "maxLength": 160,
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9-]*(?::[a-z0-9][a-z0-9-]*)+$",
+          "type": "string"
+        },
+        "rationale": {
+          "maxLength": 500,
+          "minLength": 10,
+          "type": "string"
+        },
+        "toId": {
+          "maxLength": 160,
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9-]*(?::[a-z0-9][a-z0-9-]*)+$",
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "prerequisite",
+            "parallel",
+            "alternative",
+            "feedback",
+            "does-not-imply"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "fromId",
+        "id",
+        "rationale",
+        "toId",
+        "type"
+      ],
+      "type": "object"
+    },
+    "authorityDependencyGraph": {
+      "additionalProperties": false,
+      "properties": {
+        "automaticProgression": {
+          "const": false,
+          "type": "boolean"
+        },
+        "edges": {
+          "items": {
+            "$ref": "#/$defs/authorityDependencyEdge"
+          },
+          "maxItems": 40,
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "nodes": {
+          "items": {
+            "$ref": "#/$defs/authorityDependencyNode"
+          },
+          "maxItems": 30,
+          "minItems": 6,
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "automaticProgression",
+        "edges",
+        "nodes"
+      ],
+      "type": "object"
+    },
+    "authorityDependencyNode": {
+      "additionalProperties": false,
+      "properties": {
+        "assessmentId": {
+          "maxLength": 160,
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9-]*(?::[a-z0-9][a-z0-9-]*)+$",
+          "type": "string"
+        },
+        "baseEntityIds": {
+          "items": {
+            "maxLength": 160,
+            "minLength": 3,
+            "pattern": "^[a-z][A-Za-z0-9-]*(?::[a-z0-9][a-z0-9-]*)+$",
+            "type": "string"
+          },
+          "maxItems": 20,
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "id": {
+          "maxLength": 160,
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9-]*(?::[a-z0-9][a-z0-9-]*)+$",
+          "type": "string"
+        },
+        "label": {
+          "maxLength": 160,
+          "minLength": 3,
+          "type": "string"
+        },
+        "planeId": {
+          "enum": [
+            "plane:delivery",
+            "plane:jurisdiction",
+            "plane:law",
+            "plane:mandate",
+            "plane:money",
+            "plane:remedy"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "assessmentId",
+        "baseEntityIds",
+        "id",
+        "label",
+        "planeId"
+      ],
+      "type": "object"
+    },
+    "authorship": {
+      "additionalProperties": false,
+      "properties": {
+        "compiledBy": {
+          "const": "codex-assisted-publication",
+          "type": "string"
+        },
+        "exactTextHumanReviewed": {
+          "const": false,
+          "type": "boolean"
+        },
+        "humanDirectionRecorded": {
+          "const": true,
+          "type": "boolean"
+        },
+        "humanReviewCompleted": {
+          "const": false,
+          "type": "boolean"
+        },
+        "humanReviewRequired": {
+          "const": true,
+          "type": "boolean"
+        },
+        "origin": {
+          "const": "maintainer-authorized-assisted-publication",
+          "type": "string"
+        }
+      },
+      "required": [
+        "compiledBy",
+        "exactTextHumanReviewed",
+        "humanDirectionRecorded",
+        "humanReviewCompleted",
+        "humanReviewRequired",
+        "origin"
+      ],
+      "type": "object"
+    },
+    "baseSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "admissionMode": {
+          "const": "exact-immutable-vendored-snapshot-only",
+          "type": "string"
+        },
+        "asOf": {
+          "const": "2026-08-21",
+          "format": "date",
+          "type": "string"
+        },
+        "byteReceipt": {
+          "const": "sha256:1751b2ac331d6a1283cbf57b5b6961d9071f528298f97589fcbd7cf36407e139",
+          "maxLength": 71,
+          "minLength": 71,
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "bytes": {
+          "const": 196005,
+          "type": "integer"
+        },
+        "canonicalReceipt": {
+          "const": "sha256:cc2c22e356cef0160ed5da1e2fd756bad5801f574c4cb064dec157b9207b9739",
+          "maxLength": 71,
+          "minLength": 71,
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "canonicalUrl": {
+          "const": "https://thekingdom.dev/government/uk-government-engine-2026-08-21.json",
+          "format": "uri",
+          "type": "string"
+        },
+        "contractVersion": {
+          "const": "0.1.0",
+          "type": "string"
+        },
+        "exactTextHumanReviewed": {
+          "const": false,
+          "type": "boolean"
+        },
+        "guideUrl": {
+          "const": "https://thekingdom.dev/UK-GOVERNMENT-ENGINE-v0.1.md",
+          "format": "uri",
+          "type": "string"
+        },
+        "nextReviewDue": {
+          "const": "2026-09-21",
+          "format": "date",
+          "type": "string"
+        },
+        "officialSourceHandling": {
+          "const": "link-only",
+          "type": "string"
+        },
+        "path": {
+          "const": "vendor/government-engine/government-2026-08-21.json",
+          "type": "string"
+        },
+        "planeIds": {
+          "items": {
+            "enum": [
+              "plane:delivery",
+              "plane:jurisdiction",
+              "plane:law",
+              "plane:mandate",
+              "plane:money",
+              "plane:remedy"
+            ],
+            "type": "string"
+          },
+          "maxItems": 6,
+          "minItems": 6,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "runtimeFetch": {
+          "const": false,
+          "type": "boolean"
+        },
+        "schema": {
+          "const": "kingdom.government-engine-public-snapshot/0.1",
+          "type": "string"
+        },
+        "schemaUrl": {
+          "const": "https://thekingdom.dev/government/schemas/v0.1/public-snapshot.schema.json",
+          "format": "uri",
+          "type": "string"
+        }
+      },
+      "required": [
+        "admissionMode",
+        "asOf",
+        "byteReceipt",
+        "bytes",
+        "canonicalReceipt",
+        "canonicalUrl",
+        "contractVersion",
+        "exactTextHumanReviewed",
+        "guideUrl",
+        "nextReviewDue",
+        "officialSourceHandling",
+        "path",
+        "planeIds",
+        "runtimeFetch",
+        "schema",
+        "schemaUrl"
+      ],
+      "type": "object"
+    },
+    "boundaries": {
+      "additionalProperties": false,
+      "properties": {
+        "acceptsFreeText": {
+          "const": false,
+          "type": "boolean"
+        },
+        "accountAccess": {
+          "const": false,
+          "type": "boolean"
+        },
+        "advice": {
+          "const": false,
+          "type": "boolean"
+        },
+        "approval": {
+          "const": false,
+          "type": "boolean"
+        },
+        "authorityCreation": {
+          "const": false,
+          "type": "boolean"
+        },
+        "automatedAction": {
+          "const": false,
+          "type": "boolean"
+        },
+        "automatedDecision": {
+          "const": false,
+          "type": "boolean"
+        },
+        "automaticProgression": {
+          "const": false,
+          "type": "boolean"
+        },
+        "credentialAccess": {
+          "const": false,
+          "type": "boolean"
+        },
+        "credentialCollection": {
+          "const": false,
+          "type": "boolean"
+        },
+        "currentOfficeholders": {
+          "const": false,
+          "type": "boolean"
+        },
+        "deadlineDetermination": {
+          "const": false,
+          "type": "boolean"
+        },
+        "decisionAuthority": {
+          "const": false,
+          "type": "boolean"
+        },
+        "deployment": {
+          "const": false,
+          "type": "boolean"
+        },
+        "eligibilityDetermination": {
+          "const": false,
+          "type": "boolean"
+        },
+        "externalCrosswalkAsGovernmentEvidence": {
+          "const": false,
+          "type": "boolean"
+        },
+        "externalEffects": {
+          "const": false,
+          "type": "boolean"
+        },
+        "filing": {
+          "const": false,
+          "type": "boolean"
+        },
+        "governmentAffiliation": {
+          "const": false,
+          "type": "boolean"
+        },
+        "identityAccess": {
+          "const": false,
+          "type": "boolean"
+        },
+        "identityCollection": {
+          "const": false,
+          "type": "boolean"
+        },
+        "legalAdvice": {
+          "const": false,
+          "type": "boolean"
+        },
+        "legalConclusion": {
+          "const": false,
+          "type": "boolean"
+        },
+        "liabilityDetermination": {
+          "const": false,
+          "type": "boolean"
+        },
+        "liveData": {
+          "const": false,
+          "type": "boolean"
+        },
+        "llmRuntime": {
+          "const": false,
+          "type": "boolean"
+        },
+        "mcpExposure": {
+          "const": false,
+          "type": "boolean"
+        },
+        "networkAtBuildOrRuntime": {
+          "const": false,
+          "type": "boolean"
+        },
+        "officialEndorsement": {
+          "const": false,
+          "type": "boolean"
+        },
+        "partyProfiles": {
+          "const": false,
+          "type": "boolean"
+        },
+        "payment": {
+          "const": false,
+          "type": "boolean"
+        },
+        "peopleProfiles": {
+          "const": false,
+          "type": "boolean"
+        },
+        "personalData": {
+          "const": false,
+          "type": "boolean"
+        },
+        "personalDataCollection": {
+          "const": false,
+          "type": "boolean"
+        },
+        "preferredOptionSelection": {
+          "const": false,
+          "type": "boolean"
+        },
+        "procurement": {
+          "const": false,
+          "type": "boolean"
+        },
+        "publicForm": {
+          "const": false,
+          "type": "boolean"
+        },
+        "ranking": {
+          "const": false,
+          "type": "boolean"
+        },
+        "runtimeFetch": {
+          "const": false,
+          "type": "boolean"
+        },
+        "scoring": {
+          "const": false,
+          "type": "boolean"
+        },
+        "spending": {
+          "const": false,
+          "type": "boolean"
+        },
+        "submissions": {
+          "const": false,
+          "type": "boolean"
+        },
+        "taxAdvice": {
+          "const": false,
+          "type": "boolean"
+        },
+        "taxConclusion": {
+          "const": false,
+          "type": "boolean"
+        },
+        "transaction": {
+          "const": false,
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "acceptsFreeText",
+        "accountAccess",
+        "advice",
+        "approval",
+        "authorityCreation",
+        "automatedAction",
+        "automatedDecision",
+        "automaticProgression",
+        "credentialAccess",
+        "credentialCollection",
+        "currentOfficeholders",
+        "deadlineDetermination",
+        "decisionAuthority",
+        "deployment",
+        "eligibilityDetermination",
+        "externalCrosswalkAsGovernmentEvidence",
+        "externalEffects",
+        "filing",
+        "governmentAffiliation",
+        "identityAccess",
+        "identityCollection",
+        "legalAdvice",
+        "legalConclusion",
+        "liabilityDetermination",
+        "liveData",
+        "llmRuntime",
+        "mcpExposure",
+        "networkAtBuildOrRuntime",
+        "officialEndorsement",
+        "partyProfiles",
+        "payment",
+        "peopleProfiles",
+        "personalData",
+        "personalDataCollection",
+        "preferredOptionSelection",
+        "procurement",
+        "publicForm",
+        "ranking",
+        "runtimeFetch",
+        "scoring",
+        "spending",
+        "submissions",
+        "taxAdvice",
+        "taxConclusion",
+        "transaction"
+      ],
+      "type": "object"
+    },
+    "buildProvenance": {
+      "additionalProperties": false,
+      "properties": {
+        "deterministic": {
+          "const": true,
+          "type": "boolean"
+        },
+        "inputCanonicalReceipts": {
+          "additionalProperties": false,
+          "properties": {
+            "config": {
+              "const": "sha256:24cf7e2f470ba154a956c1665e9b4a130497410428720e521c6d3b8af34b8c4d",
+              "maxLength": 71,
+              "minLength": 71,
+              "pattern": "^sha256:[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "dossiers": {
+              "const": "sha256:5e487ca2f1938bcaf8da13ca1db956eb356f587eade6a92ce179f70686759929",
+              "maxLength": 71,
+              "minLength": 71,
+              "pattern": "^sha256:[0-9a-f]{64}$",
+              "type": "string"
+            }
+          },
+          "required": [
+            "config",
+            "dossiers"
+          ],
+          "type": "object"
+        },
+        "networkUsed": {
+          "const": false,
+          "type": "boolean"
+        },
+        "schemaByteReceipt": {
+          "maxLength": 71,
+          "minLength": 71,
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "schemaCanonicalReceipt": {
+          "maxLength": 71,
+          "minLength": 71,
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "deterministic",
+        "inputCanonicalReceipts",
+        "networkUsed",
+        "schemaByteReceipt",
+        "schemaCanonicalReceipt"
+      ],
+      "type": "object"
+    },
+    "categoryErrorRule": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 160,
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9-]*(?::[a-z0-9][a-z0-9-]*)+$",
+          "type": "string"
+        },
+        "left": {
+          "enum": [
+            "appropriation",
+            "complaint",
+            "estimate",
+            "external-crosswalk",
+            "forecast",
+            "freshness",
+            "guidance",
+            "issue",
+            "mandate",
+            "payment-or-settlement",
+            "payment-rail",
+            "plan",
+            "service-or-api",
+            "topic"
+          ],
+          "type": "string"
+        },
+        "relation": {
+          "const": "does-not-imply",
+          "type": "string"
+        },
+        "right": {
+          "enum": [
+            "appeal-or-deadline-protection",
+            "appropriation",
+            "authority",
+            "credit",
+            "decision-authority",
+            "estimate",
+            "issue",
+            "law",
+            "legal-effect",
+            "legal-power",
+            "legislative-or-executive-competence",
+            "liability",
+            "official-evidence",
+            "outturn",
+            "spending-power"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "left",
+        "relation",
+        "right"
+      ],
+      "type": "object"
+    },
+    "causalEdge": {
+      "additionalProperties": false,
+      "properties": {
+        "fromId": {
+          "maxLength": 160,
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9-]*(?::[a-z0-9][a-z0-9-]*)+$",
+          "type": "string"
+        },
+        "id": {
+          "maxLength": 160,
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9-]*(?::[a-z0-9][a-z0-9-]*)+$",
+          "type": "string"
+        },
+        "toId": {
+          "maxLength": 160,
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9-]*(?::[a-z0-9][a-z0-9-]*)+$",
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "hypothesises-contribution",
+            "depends-on",
+            "may-undermine",
+            "tests"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "fromId",
+        "id",
+        "toId",
+        "type"
+      ],
+      "type": "object"
+    },
+    "causalGraph": {
+      "additionalProperties": false,
+      "properties": {
+        "claimsCausalTruth": {
+          "const": false,
+          "type": "boolean"
+        },
+        "edges": {
+          "items": {
+            "$ref": "#/$defs/causalEdge"
+          },
+          "maxItems": 50,
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "nodes": {
+          "items": {
+            "$ref": "#/$defs/causalNode"
+          },
+          "maxItems": 50,
+          "minItems": 6,
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "claimsCausalTruth",
+        "edges",
+        "nodes"
+      ],
+      "type": "object"
+    },
+    "causalNode": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 160,
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9-]*(?::[a-z0-9][a-z0-9-]*)+$",
+          "type": "string"
+        },
+        "optionId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "statement": {
+          "maxLength": 500,
+          "minLength": 10,
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "intervention-option",
+            "assumption",
+            "output",
+            "desired-outcome",
+            "negative-pathway",
+            "evaluation-need"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "optionId",
+        "statement",
+        "type"
+      ],
+      "type": "object"
+    },
+    "counts": {
+      "additionalProperties": false,
+      "properties": {
+        "authorityDependencyEdges": {
+          "const": 17,
+          "type": "integer"
+        },
+        "authorityDependencyNodes": {
+          "const": 25,
+          "type": "integer"
+        },
+        "causalEdges": {
+          "const": 24,
+          "type": "integer"
+        },
+        "causalNodes": {
+          "const": 30,
+          "type": "integer"
+        },
+        "desiredOutcomes": {
+          "const": 3,
+          "type": "integer"
+        },
+        "dossiers": {
+          "const": 3,
+          "type": "integer"
+        },
+        "evidenceAtoms": {
+          "const": 30,
+          "type": "integer"
+        },
+        "externalContextBindings": {
+          "const": 4,
+          "type": "integer"
+        },
+        "humanGates": {
+          "const": 6,
+          "type": "integer"
+        },
+        "jurisdictionBranches": {
+          "const": 4,
+          "type": "integer"
+        },
+        "options": {
+          "const": 9,
+          "type": "integer"
+        },
+        "planeAssessments": {
+          "const": 18,
+          "type": "integer"
+        },
+        "routeOrientations": {
+          "const": 4,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "authorityDependencyEdges",
+        "authorityDependencyNodes",
+        "causalEdges",
+        "causalNodes",
+        "desiredOutcomes",
+        "dossiers",
+        "evidenceAtoms",
+        "externalContextBindings",
+        "humanGates",
+        "jurisdictionBranches",
+        "options",
+        "planeAssessments",
+        "routeOrientations"
+      ],
+      "type": "object"
+    },
+    "desiredOutcome": {
+      "additionalProperties": false,
+      "properties": {
+        "assumptionNodeIds": {
+          "items": {
+            "maxLength": 160,
+            "minLength": 3,
+            "pattern": "^[a-z][a-z0-9-]*(?::[a-z0-9][a-z0-9-]*)+$",
+            "type": "string"
+          },
+          "maxItems": 20,
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "evaluationNeedNodeIds": {
+          "items": {
+            "maxLength": 160,
+            "minLength": 3,
+            "pattern": "^[a-z][a-z0-9-]*(?::[a-z0-9][a-z0-9-]*)+$",
+            "type": "string"
+          },
+          "maxItems": 20,
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "id": {
+          "maxLength": 160,
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9-]*(?::[a-z0-9][a-z0-9-]*)+$",
+          "type": "string"
+        },
+        "negativePathwayNodeIds": {
+          "items": {
+            "maxLength": 160,
+            "minLength": 3,
+            "pattern": "^[a-z][a-z0-9-]*(?::[a-z0-9][a-z0-9-]*)+$",
+            "type": "string"
+          },
+          "maxItems": 20,
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "statement": {
+          "maxLength": 500,
+          "minLength": 10,
+          "type": "string"
+        }
+      },
+      "required": [
+        "assumptionNodeIds",
+        "evaluationNeedNodeIds",
+        "id",
+        "negativePathwayNodeIds",
+        "statement"
+      ],
+      "type": "object"
+    },
+    "dossier": {
+      "additionalProperties": false,
+      "properties": {
+        "actionArrays": {
+          "$ref": "#/$defs/actionArrays"
+        },
+        "adoption": {
+          "$ref": "#/$defs/adoption"
+        },
+        "authorityDependencyGraph": {
+          "$ref": "#/$defs/authorityDependencyGraph"
+        },
+        "causalChangeHypothesisGraph": {
+          "$ref": "#/$defs/causalGraph"
+        },
+        "desiredOutcomes": {
+          "items": {
+            "$ref": "#/$defs/desiredOutcome"
+          },
+          "maxItems": 20,
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "evidenceAtoms": {
+          "items": {
+            "$ref": "#/$defs/evidenceAtom"
+          },
+          "maxItems": 80,
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "externalContext": {
+          "items": {
+            "$ref": "#/$defs/externalContext"
+          },
+          "maxItems": 20,
+          "minItems": 0,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "hold": {
+          "$ref": "#/$defs/hold"
+        },
+        "humanGates": {
+          "items": {
+            "$ref": "#/$defs/humanGate"
+          },
+          "maxItems": 20,
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "id": {
+          "maxLength": 160,
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9-]*(?::[a-z0-9][a-z0-9-]*)+$",
+          "type": "string"
+        },
+        "jurisdictionBranches": {
+          "items": {
+            "$ref": "#/$defs/jurisdictionBranch"
+          },
+          "maxItems": 4,
+          "minItems": 0,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "options": {
+          "items": {
+            "$ref": "#/$defs/option"
+          },
+          "maxItems": 20,
+          "minItems": 3,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "planeAssessments": {
+          "items": {
+            "$ref": "#/$defs/planeAssessment"
+          },
+          "maxItems": 6,
+          "minItems": 6,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "preferredOptionId": {
+          "const": null,
+          "type": "null"
+        },
+        "proposition": {
+          "$ref": "#/$defs/proposition"
+        },
+        "routeOrientations": {
+          "items": {
+            "$ref": "#/$defs/routeOrientation"
+          },
+          "maxItems": 10,
+          "minItems": 0,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "selectionState": {
+          "const": "not-selected",
+          "type": "string"
+        },
+        "synthetic": {
+          "const": true,
+          "type": "boolean"
+        },
+        "title": {
+          "maxLength": 200,
+          "minLength": 12,
+          "pattern": "^Synthetic ",
+          "type": "string"
+        },
+        "trialChamber": {
+          "$ref": "#/$defs/trialChamber"
+        }
+      },
+      "required": [
+        "actionArrays",
+        "adoption",
+        "authorityDependencyGraph",
+        "causalChangeHypothesisGraph",
+        "desiredOutcomes",
+        "evidenceAtoms",
+        "externalContext",
+        "hold",
+        "humanGates",
+        "id",
+        "jurisdictionBranches",
+        "options",
+        "planeAssessments",
+        "preferredOptionId",
+        "proposition",
+        "routeOrientations",
+        "selectionState",
+        "synthetic",
+        "title",
+        "trialChamber"
+      ],
+      "type": "object"
+    },
+    "evidenceAtom": {
+      "additionalProperties": false,
+      "properties": {
+        "baseEntityId": {
+          "maxLength": 160,
+          "minLength": 3,
+          "pattern": "^[a-z][A-Za-z0-9-]*(?::[a-z0-9][a-z0-9-]*)+$",
+          "type": "string"
+        },
+        "baseEntityType": {
+          "enum": [
+            "body",
+            "claim",
+            "flow",
+            "plane",
+            "rail",
+            "redressRoute",
+            "relation",
+            "source",
+            "unknown"
+          ],
+          "type": "string"
+        },
+        "baseSnapshotByteReceipt": {
+          "const": "sha256:1751b2ac331d6a1283cbf57b5b6961d9071f528298f97589fcbd7cf36407e139",
+          "maxLength": 71,
+          "minLength": 71,
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "baseSnapshotCanonicalReceipt": {
+          "const": "sha256:cc2c22e356cef0160ed5da1e2fd756bad5801f574c4cb064dec157b9207b9739",
+          "maxLength": 71,
+          "minLength": 71,
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "baseSnapshotCanonicalUrl": {
+          "const": "https://thekingdom.dev/government/uk-government-engine-2026-08-21.json",
+          "format": "uri",
+          "type": "string"
+        },
+        "evidenceUse": {
+          "const": "orientation-only",
+          "type": "string"
+        },
+        "exactTextHumanReviewed": {
+          "const": false,
+          "type": "boolean"
+        },
+        "genericOfficialHostTrust": {
+          "const": false,
+          "type": "boolean"
+        },
+        "id": {
+          "maxLength": 160,
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9-]*(?::[a-z0-9][a-z0-9-]*)+$",
+          "type": "string"
+        },
+        "officialSourceHandling": {
+          "const": "link-only",
+          "type": "string"
+        },
+        "supportsConclusion": {
+          "const": false,
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "baseEntityId",
+        "baseEntityType",
+        "baseSnapshotByteReceipt",
+        "baseSnapshotCanonicalReceipt",
+        "baseSnapshotCanonicalUrl",
+        "evidenceUse",
+        "exactTextHumanReviewed",
+        "genericOfficialHostTrust",
+        "id",
+        "officialSourceHandling",
+        "supportsConclusion"
+      ],
+      "type": "object"
+    },
+    "externalContext": {
+      "additionalProperties": false,
+      "properties": {
+        "baseSnapshotByteReceipt": {
+          "const": "sha256:1751b2ac331d6a1283cbf57b5b6961d9071f528298f97589fcbd7cf36407e139",
+          "maxLength": 71,
+          "minLength": 71,
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "baseSnapshotCanonicalReceipt": {
+          "const": "sha256:cc2c22e356cef0160ed5da1e2fd756bad5801f574c4cb064dec157b9207b9739",
+          "maxLength": 71,
+          "minLength": 71,
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "baseSnapshotCanonicalUrl": {
+          "const": "https://thekingdom.dev/government/uk-government-engine-2026-08-21.json",
+          "format": "uri",
+          "type": "string"
+        },
+        "bridgeId": {
+          "enum": [
+            "bridge:taxsorted-public-funding",
+            "bridge:taxsorted-tax-system"
+          ],
+          "type": "string"
+        },
+        "collection": {
+          "enum": [
+            "fundingMechanisms",
+            "pipelineStages",
+            "transparencyGaps"
+          ],
+          "type": "string"
+        },
+        "recordId": {
+          "enum": [
+            "gap-pooled-pound-traceability",
+            "mechanism-parliamentary-supply",
+            "stage-review-and-appeal",
+            "stage-service-complaint"
+          ],
+          "type": "string"
+        },
+        "supportsClaimIds": {
+          "items": {
+            "maxLength": 160,
+            "minLength": 3,
+            "pattern": "^[a-z][a-z0-9-]*(?::[a-z0-9][a-z0-9-]*)+$",
+            "type": "string"
+          },
+          "maxItems": 0,
+          "minItems": 0,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "taint": {
+          "const": "external-context-only",
+          "type": "string"
+        }
+      },
+      "required": [
+        "baseSnapshotByteReceipt",
+        "baseSnapshotCanonicalReceipt",
+        "baseSnapshotCanonicalUrl",
+        "bridgeId",
+        "collection",
+        "recordId",
+        "supportsClaimIds",
+        "taint"
+      ],
+      "type": "object"
+    },
+    "freshness": {
+      "additionalProperties": false,
+      "properties": {
+        "automaticRuntimeEnforcement": {
+          "const": false,
+          "type": "boolean"
+        },
+        "expiredState": {
+          "const": "hard-quarantined-historical-only",
+          "type": "string"
+        },
+        "immutableAfterDeadline": {
+          "const": "historical-orientation-only",
+          "type": "string"
+        },
+        "inheritsBaseReviewWindow": {
+          "const": true,
+          "type": "boolean"
+        },
+        "mutableAliasPolicy": {
+          "const": "retire-or-replace",
+          "type": "string"
+        },
+        "nextReviewDue": {
+          "const": "2026-09-21",
+          "format": "date",
+          "type": "string"
+        },
+        "readerTimeBehavior": {
+          "const": "immutable-artifact-remains-available-but-must-be-treated-as-historical-only-after-review-deadline",
+          "type": "string"
+        },
+        "readerTimeStateNotEmbedded": {
+          "const": true,
+          "type": "boolean"
+        },
+        "releaseGateRequired": {
+          "const": true,
+          "type": "boolean"
+        },
+        "stateAtPublication": {
+          "const": "within-review-window",
+          "type": "string"
+        }
+      },
+      "required": [
+        "automaticRuntimeEnforcement",
+        "expiredState",
+        "immutableAfterDeadline",
+        "inheritsBaseReviewWindow",
+        "mutableAliasPolicy",
+        "nextReviewDue",
+        "readerTimeBehavior",
+        "readerTimeStateNotEmbedded",
+        "releaseGateRequired",
+        "stateAtPublication"
+      ],
+      "type": "object"
+    },
+    "hold": {
+      "additionalProperties": false,
+      "properties": {
+        "reasonCode": {
+          "maxLength": 160,
+          "minLength": 3,
+          "type": "string"
+        },
+        "state": {
+          "const": "held",
+          "type": "string"
+        },
+        "stopsProgression": {
+          "const": true,
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "reasonCode",
+        "state",
+        "stopsProgression"
+      ],
+      "type": "object"
+    },
+    "humanGate": {
+      "additionalProperties": false,
+      "properties": {
+        "authorityOutsideSystem": {
+          "const": true,
+          "type": "boolean"
+        },
+        "completed": {
+          "const": false,
+          "type": "boolean"
+        },
+        "id": {
+          "maxLength": 160,
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9-]*(?::[a-z0-9][a-z0-9-]*)+$",
+          "type": "string"
+        },
+        "label": {
+          "maxLength": 200,
+          "minLength": 3,
+          "type": "string"
+        },
+        "planeIds": {
+          "items": {
+            "enum": [
+              "plane:delivery",
+              "plane:jurisdiction",
+              "plane:law",
+              "plane:mandate",
+              "plane:money",
+              "plane:remedy"
+            ],
+            "type": "string"
+          },
+          "maxItems": 6,
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "required": {
+          "const": true,
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "authorityOutsideSystem",
+        "completed",
+        "id",
+        "label",
+        "planeIds",
+        "required"
+      ],
+      "type": "object"
+    },
+    "jurisdiction": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "const": "UK",
+          "type": "string"
+        },
+        "label": {
+          "const": "United Kingdom",
+          "type": "string"
+        },
+        "scope": {
+          "const": "orientation-only",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "label",
+        "scope"
+      ],
+      "type": "object"
+    },
+    "jurisdictionBranch": {
+      "additionalProperties": false,
+      "properties": {
+        "baseBodyIds": {
+          "items": {
+            "maxLength": 160,
+            "minLength": 3,
+            "pattern": "^[a-z][A-Za-z0-9-]*(?::[a-z0-9][a-z0-9-]*)+$",
+            "type": "string"
+          },
+          "maxItems": 10,
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "baseClaimIds": {
+          "items": {
+            "maxLength": 160,
+            "minLength": 3,
+            "pattern": "^[a-z][A-Za-z0-9-]*(?::[a-z0-9][a-z0-9-]*)+$",
+            "type": "string"
+          },
+          "maxItems": 10,
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "id": {
+          "maxLength": 160,
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9-]*(?::[a-z0-9][a-z0-9-]*)+$",
+          "type": "string"
+        },
+        "jurisdiction": {
+          "enum": [
+            "England",
+            "Scotland",
+            "Wales",
+            "Northern Ireland"
+          ],
+          "type": "string"
+        },
+        "status": {
+          "const": "specialist-review-required",
+          "type": "string"
+        }
+      },
+      "required": [
+        "baseBodyIds",
+        "baseClaimIds",
+        "id",
+        "jurisdiction",
+        "status"
+      ],
+      "type": "object"
+    },
+    "option": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "maxLength": 500,
+          "minLength": 10,
+          "type": "string"
+        },
+        "id": {
+          "maxLength": 160,
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9-]*(?::[a-z0-9][a-z0-9-]*)+$",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "business-as-usual",
+            "alternative"
+          ],
+          "type": "string"
+        },
+        "label": {
+          "maxLength": 160,
+          "minLength": 3,
+          "type": "string"
+        },
+        "selected": {
+          "const": false,
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "description",
+        "id",
+        "kind",
+        "label",
+        "selected"
+      ],
+      "type": "object"
+    },
+    "planeAssessment": {
+      "additionalProperties": false,
+      "properties": {
+        "evidenceAtomIds": {
+          "items": {
+            "maxLength": 160,
+            "minLength": 3,
+            "pattern": "^[a-z][a-z0-9-]*(?::[a-z0-9][a-z0-9-]*)+$",
+            "type": "string"
+          },
+          "maxItems": 30,
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "id": {
+          "maxLength": 160,
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9-]*(?::[a-z0-9][a-z0-9-]*)+$",
+          "type": "string"
+        },
+        "planeId": {
+          "enum": [
+            "plane:delivery",
+            "plane:jurisdiction",
+            "plane:law",
+            "plane:mandate",
+            "plane:money",
+            "plane:remedy"
+          ],
+          "type": "string"
+        },
+        "question": {
+          "maxLength": 500,
+          "minLength": 10,
+          "type": "string"
+        },
+        "specialistReviewRequired": {
+          "type": "boolean"
+        },
+        "status": {
+          "enum": [
+            "not-assessed",
+            "insufficient-evidence",
+            "contested",
+            "specialist-review-required",
+            "orientation-supported"
+          ],
+          "type": "string"
+        },
+        "unresolvedQuestionIds": {
+          "items": {
+            "maxLength": 160,
+            "minLength": 3,
+            "pattern": "^[a-z][a-z0-9-]*(?::[a-z0-9][a-z0-9-]*)+$",
+            "type": "string"
+          },
+          "maxItems": 20,
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "evidenceAtomIds",
+        "id",
+        "planeId",
+        "question",
+        "specialistReviewRequired",
+        "status",
+        "unresolvedQuestionIds"
+      ],
+      "type": "object"
+    },
+    "proposition": {
+      "additionalProperties": false,
+      "properties": {
+        "affectedTerritories": {
+          "items": {
+            "maxLength": 80,
+            "minLength": 2,
+            "type": "string"
+          },
+          "maxItems": 4,
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "canonicalReceipt": {
+          "maxLength": 71,
+          "minLength": 71,
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "dossierId": {
+          "maxLength": 160,
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9-]*(?::[a-z0-9][a-z0-9-]*)+$",
+          "type": "string"
+        },
+        "humanReviewed": {
+          "const": false,
+          "type": "boolean"
+        },
+        "kind": {
+          "const": "synthetic-exemplar",
+          "type": "string"
+        },
+        "officialProposal": {
+          "const": false,
+          "type": "boolean"
+        },
+        "outOfScope": {
+          "items": {
+            "maxLength": 160,
+            "minLength": 3,
+            "type": "string"
+          },
+          "maxItems": 20,
+          "minItems": 3,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "personalDataPresent": {
+          "const": false,
+          "type": "boolean"
+        },
+        "scope": {
+          "maxLength": 300,
+          "minLength": 10,
+          "type": "string"
+        },
+        "sourceAuthorship": {
+          "const": "codex-assisted-publication-under-recorded-human-direction",
+          "type": "string"
+        },
+        "verbatimStatement": {
+          "maxLength": 1000,
+          "minLength": 40,
+          "type": "string"
+        }
+      },
+      "required": [
+        "affectedTerritories",
+        "canonicalReceipt",
+        "dossierId",
+        "humanReviewed",
+        "kind",
+        "officialProposal",
+        "outOfScope",
+        "personalDataPresent",
+        "scope",
+        "sourceAuthorship",
+        "verbatimStatement"
+      ],
+      "type": "object"
+    },
+    "routeOrientation": {
+      "additionalProperties": false,
+      "properties": {
+        "baseRedressRouteId": {
+          "enum": [
+            "redress:hmrc-service-complaint",
+            "redress:hmrc-statutory-review",
+            "redress:tax-tribunal-appeal",
+            "redress:judicial-review-england-wales"
+          ],
+          "type": "string"
+        },
+        "deadlineDetermined": {
+          "const": false,
+          "type": "boolean"
+        },
+        "eligibilityDetermined": {
+          "const": false,
+          "type": "boolean"
+        },
+        "id": {
+          "maxLength": 160,
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9-]*(?::[a-z0-9][a-z0-9-]*)+$",
+          "type": "string"
+        },
+        "relationship": {
+          "const": "parallel",
+          "type": "string"
+        },
+        "routeDetermined": {
+          "const": false,
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "baseRedressRouteId",
+        "deadlineDetermined",
+        "eligibilityDetermined",
+        "id",
+        "relationship",
+        "routeDetermined"
+      ],
+      "type": "object"
+    },
+    "trialChamber": {
+      "additionalProperties": false,
+      "properties": {
+        "compatibility": {
+          "const": "unavailable",
+          "type": "string"
+        },
+        "result": {
+          "const": null,
+          "type": "null"
+        },
+        "useAsAuthority": {
+          "const": false,
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "compatibility",
+        "result",
+        "useAsAuthority"
+      ],
+      "type": "object"
+    },
+    "urls": {
+      "additionalProperties": false,
+      "properties": {
+        "canonical": {
+          "const": "https://thekingdom.dev/government/uk-government-transformation-engine-2026-08-21.json",
+          "format": "uri",
+          "type": "string"
+        },
+        "guide": {
+          "const": "https://thekingdom.dev/UK-GOVERNMENT-TRANSFORMATION-ENGINE-v0.1.md",
+          "format": "uri",
+          "type": "string"
+        },
+        "human": {
+          "const": "https://thekingdom.dev/government-transformation-engine/",
+          "format": "uri",
+          "type": "string"
+        },
+        "mutableAlias": {
+          "const": "https://thekingdom.dev/government-transformations.json",
+          "format": "uri",
+          "type": "string"
+        },
+        "producer": {
+          "const": "https://github.com/cambridgetcg/kingdom-government-transformation-engine/tree/v0.1.0",
+          "format": "uri",
+          "type": "string"
+        },
+        "repository": {
+          "const": "https://github.com/cambridgetcg/kingdom-government-transformation-engine",
+          "format": "uri",
+          "type": "string"
+        },
+        "schema": {
+          "const": "https://thekingdom.dev/government/transformations/schemas/v0.1/public-snapshot.schema.json",
+          "format": "uri",
+          "type": "string"
+        }
+      },
+      "required": [
+        "canonical",
+        "guide",
+        "human",
+        "mutableAlias",
+        "producer",
+        "repository",
+        "schema"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "https://thekingdom.dev/government/transformations/schemas/v0.1/public-snapshot.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Closed, offline, read-only schema for visibly synthetic transformation-orientation dossiers. It confers no authority and performs no action.",
+  "properties": {
+    "actionArrays": {
+      "$ref": "#/$defs/actionArrays"
+    },
+    "adoption": {
+      "$ref": "#/$defs/adoption"
+    },
+    "asOf": {
+      "const": "2026-08-21",
+      "format": "date",
+      "type": "string"
+    },
+    "authorship": {
+      "$ref": "#/$defs/authorship"
+    },
+    "baseSnapshot": {
+      "$ref": "#/$defs/baseSnapshot"
+    },
+    "boundaries": {
+      "$ref": "#/$defs/boundaries"
+    },
+    "buildProvenance": {
+      "$ref": "#/$defs/buildProvenance"
+    },
+    "categoryErrorRules": {
+      "items": {
+        "$ref": "#/$defs/categoryErrorRule"
+      },
+      "maxItems": 18,
+      "minItems": 18,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "contractVersion": {
+      "const": "0.1.0",
+      "type": "string"
+    },
+    "counts": {
+      "$ref": "#/$defs/counts"
+    },
+    "dossiers": {
+      "items": {
+        "$ref": "#/$defs/dossier"
+      },
+      "maxItems": 3,
+      "minItems": 3,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "freshness": {
+      "$ref": "#/$defs/freshness"
+    },
+    "jurisdiction": {
+      "$ref": "#/$defs/jurisdiction"
+    },
+    "schema": {
+      "const": "kingdom.government-transformation-orientation-public-snapshot/0.1",
+      "type": "string"
+    },
+    "title": {
+      "const": "Government Transformation Engine: United Kingdom",
+      "type": "string"
+    },
+    "trialChamber": {
+      "$ref": "#/$defs/trialChamber"
+    },
+    "urls": {
+      "$ref": "#/$defs/urls"
+    }
+  },
+  "required": [
+    "actionArrays",
+    "adoption",
+    "asOf",
+    "authorship",
+    "baseSnapshot",
+    "boundaries",
+    "buildProvenance",
+    "categoryErrorRules",
+    "contractVersion",
+    "counts",
+    "dossiers",
+    "freshness",
+    "jurisdiction",
+    "schema",
+    "title",
+    "trialChamber",
+    "urls"
+  ],
+  "title": "KINGDOM UK Government Transformation Orientation Engine public snapshot v0.1",
+  "type": "object"
+}
